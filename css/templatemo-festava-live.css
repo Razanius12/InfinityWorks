@@ -825,6 +825,7 @@ strong {
  background-color: var(--dark-color);
  position: relative;
  overflow: hidden;
+ padding-top: 30px;
  padding-bottom: 30px;
 }
 
@@ -847,7 +848,8 @@ strong {
 }
 
 .site-footer-link,
-.copyright-text {
+.copyright-text,
+.distribution-text {
  color: var(--white-color);
 }
 
@@ -863,6 +865,11 @@ strong {
 
 .copyright-text {
  font-size: var(--copyright-font-size);
+}
+
+.distribution-text {
+ font-size: var(--copyright-font-size);
+ text-align: right;
 }
 
 
@@ -998,6 +1005,10 @@ strong {
   font-size: 14px;
   padding: 10px 20px;
  }
+ 
+ .distribution-text {
+  text-align: left;
+ }
 }
 
 @media screen and (max-width: 480px) {
@@ -1019,5 +1030,9 @@ strong {
 
  h5 {
   font-size: 20px;
+ }
+
+ .distribution-text {
+  text-align: left;
  }
 }
