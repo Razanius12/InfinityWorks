@@ -18,7 +18,11 @@ https://templatemo.com/tm-583-festava-live
  --custom-btn-bg-color: #273987;
  --custom-btn-bg-hover-color: #121c4b;
  --dark-color: #000000;
+ --p-color: #000000;
+ /*
+ backup
  --p-color: #717275;
+ */
  --border-color: #7fffd4;
  --link-hover-color: #566ccc;
 
@@ -126,6 +130,12 @@ a:hover {
 b,
 strong {
  font-weight: var(--font-weight-bold);
+}
+
+.card-text {
+ color: var(--p-color);
+ font-size: var(--p-font-size);
+ font-weight: var(--font-weight-normal) !important;
 }
 
 .link-fx-1 {
@@ -562,6 +572,11 @@ strong {
  width: 100%;
 }
 
+.artists-card-image {
+ border-top-left-radius: var(--border-radius-medium);
+ border-top-right-radius: var(--border-radius-medium);
+}
+
 .artists-thumb:hover .artists-hover {
  transform: translateY(0);
  opacity: 1;
@@ -965,6 +980,11 @@ strong {
 
  .ticket-form {
   padding: 30px;
+ }
+
+ .row-cols-md-3>* {
+  flex: 0 0 auto;
+  width: 100% !important;
  }
 }
 
