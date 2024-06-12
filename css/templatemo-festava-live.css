@@ -36,6 +36,7 @@ https://templatemo.com/tm-583-festava-live
 
  --border-radius-large: 100px;
  --border-radius-medium: 20px;
+ --border-radius-medium-16px: 16px;
  --border-radius-small: 10px;
 
  --font-weight-light: 300;
@@ -363,7 +364,7 @@ strong {
  top: 0;
  right: 0;
  left: 0;
- margin-top: 51px;
+ margin-top: 16px;
 }
 
 .sticky-wrapper.is-sticky .navbar {
@@ -477,7 +478,7 @@ strong {
  position: relative;
  overflow: hidden;
  padding-top: 100px;
- height: calc(100vh - 54px);
+ height: calc(100vh);
 }
 
 .hero-section small {
@@ -506,15 +507,15 @@ strong {
   ABOUT              
 -----------------------------------------*/
 .about-section {
- background-image: url('../images/edward-unsplash-blur.jpg');
- background-color: #704010;
+ background-image: url('../images/infinityCarsBlur38kb.jpg');
+ background-color: #273987;
  background-repeat: no-repeat;
  background-size: cover;
  position: relative;
 }
 
 .about-image {
- border-radius: var(--border-radius-medium);
+ border-radius: var(--border-radius-medium-16px);
  display: block;
 }
 
@@ -545,43 +546,6 @@ strong {
  margin: 20px;
  padding: 35px;
 }
-
-
-/*---------------------------------------
-  TICKET               
------------------------------------------*/
-.ticket-section {
- background-image: url('../images/nicholas-green-unsplash-blur.jpg');
- background-repeat: no-repeat;
- background-size: cover;
- position: relative;
- padding-top: 130px;
-}
-
-.ticket-form {
- background: var(--white-color);
- border-radius: var(--border-radius-medium);
- padding: 50px;
-}
-
-.ticket-form .form-check {
- position: relative;
- min-height: 52px;
- padding-left: 35px;
-}
-
-.ticket-form .form-check .form-check-label {
- display: block;
- position: absolute;
- top: 50%;
- left: 50%;
- transform: translate(-50%, -50%);
- margin-top: 12px;
- margin-left: 35px;
- width: 100%;
- height: 100%;
-}
-
 
 /*---------------------------------------
   ARTISTS              
@@ -644,7 +608,7 @@ strong {
   SCHEDULE              
 -----------------------------------------*/
 .schedule-section {
- background-image: url('../images/nainoa-shizuru-unsplash-blur.jpg');
+ background-image: url('../images/4infinityCarsBlur44kb.jpg');
  background-color: #242424;
  background-repeat: no-repeat;
  background-position: center;
@@ -970,6 +934,10 @@ strong {
   padding: 0;
  }
 
+ .sticky-wrapper {
+  margin-top: 0;
+ }
+
  .hero-section {
   padding-top: 150px;
  }
@@ -1006,6 +974,10 @@ strong {
   padding: 10px 20px;
  }
  
+ .sticky-wrapper {
+  margin-top: 0;
+ }
+
  .distribution-text {
   text-align: left;
  }
@@ -1030,6 +1002,10 @@ strong {
 
  h5 {
   font-size: 20px;
+ }
+
+ .sticky-wrapper {
+  margin-top: 0;
  }
 
  .distribution-text {
