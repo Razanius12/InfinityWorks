@@ -579,7 +579,6 @@ strong {
 
 .artists-image {
  border-radius: var(--border-radius-medium);
- display: block;
  width: 100%;
 }
 
