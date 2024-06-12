@@ -572,13 +572,19 @@ strong {
   ARTISTS              
 -----------------------------------------*/
 .artists-thumb {
+ display: flex;
+ flex-direction: column;
+ height: 100%; 
  position: relative;
  overflow: hidden;
- margin: 10px;
 }
 
 .artists-image {
  border-radius: var(--border-radius-medium);
+ width: 100%;
+ flex-grow: 1;
+ object-fit: cover;
+ height: 100%;
  width: 100%;
 }
 
