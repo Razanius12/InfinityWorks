@@ -149,87 +149,6 @@ strong {
  justify-content: center;
 }
 
-.link-fx-1 {
- color: var(--white-color);
- position: relative;
- display: inline-flex;
- align-items: center;
- height: 32px;
- padding: 0 6px;
- text-decoration: none;
- -webkit-font-smoothing: antialiased;
- -moz-osx-font-smoothing: grayscale;
-}
-
-.link-fx-1:hover {
- color: var(--link-hover-color);
-}
-
-.link-fx-1:hover::before {
- transform: translateX(17px) scaleX(0);
- transition: transform .2s;
-}
-
-.link-fx-1:hover .icon circle {
- stroke-dashoffset: 200;
- transition: stroke-dashoffset .2s .1s;
-}
-
-.link-fx-1:hover .icon line {
- transform: rotate(-180deg);
-}
-
-.link-fx-1:hover .icon line:last-child {
- transform: rotate(180deg);
-}
-
-.link-fx-1::before {
- content: "";
- position: absolute;
- bottom: 0;
- left: 0;
- width: 100%;
- height: 1px;
- background-color: currentColor;
- transform-origin: right center;
- transition: transform .2s .1s;
-}
-
-.link-fx-1 .icon {
- position: absolute;
- right: 0;
- bottom: 0;
- transform: translateX(100%) rotate(90deg);
- font-size: 32px;
-}
-
-.icon {
- --size: 1em;
- height: var(--size);
- width: var(--size);
- display: inline-block;
- color: inherit;
- fill: currentColor;
- line-height: 1;
- flex-shrink: 0;
- max-width: initial;
-}
-
-.link-fx-1 .icon circle {
- stroke-dasharray: 100;
- stroke-dashoffset: 100;
- transition: stroke-dashoffset .2s;
-}
-
-.link-fx-1 .icon line {
- transition: transform .4s;
- transform-origin: 13px 15px;
-}
-
-.link-fx-1 .icon line:last-child {
- transform-origin: 19px 15px;
-}
-
 
 /*---------------------------------------
   SECTION               
@@ -256,50 +175,6 @@ strong {
 
 .section-overlay+.container {
  position: relative;
-}
-
-.tab-content {
- background-color: var(--white-color);
- border-radius: var(--border-radius-medium);
- padding: 45px;
-}
-
-.nav-tabs {
- background-color: var(--section-bg-color);
- border-radius: var(--border-radius-large);
- border-bottom: 0;
- padding: 15px;
-}
-
-.nav-tabs .nav-link {
- border-radius: var(--border-radius-large);
- border: 0;
- padding: 15px 25px;
- transition: all 0.3s;
-}
-
-.nav-tabs .nav-link:first-child {
- margin-right: 15px;
-}
-
-.nav-tabs .nav-item.show .nav-link,
-.nav-tabs .nav-link.active,
-.nav-tabs .nav-link:focus,
-.nav-tabs .nav-link:hover {
- background: var(--white-color);
- box-shadow: 0 1rem 3rem rgba(0, 0, 0, .175);
- color: var(--primary-color);
-}
-
-.nav-tabs h5 {
- color: var(--p-color);
- margin-bottom: 0;
-}
-
-.nav-tabs .nav-link.active h5,
-.nav-tabs .nav-link:focus h5,
-.nav-tabs .nav-link:hover h5 {
- color: var(--primary-color);
 }
 
 
@@ -646,76 +521,6 @@ strong {
  background-size: cover;
 }
 
-.table-responsive {
- filter: drop-shadow(2px 2px 4px #606060);
-}
-
-.schedule-table {
- border-radius: var(--border-radius-medium);
- position: relative;
- overflow: hidden;
-}
-
-.schedule-table .bg-warning {
- background: #f0a5a5 !important;
-}
-
-.schedule-table thead th {
- background-color: var(--secondary-color);
-}
-
-.schedule-table th,
-.schedule-table tr,
-.schedule-table td {
- border-bottom-color: #363a3e;
- padding: 30px;
-}
-
-.schedule-table tr:last-child th,
-.schedule-table tr:last-child td {
- border-bottom-color: transparent;
-}
-
-.schedule-table thead th {
- border-right: 1px solid #c7460a;
- border-bottom-color: transparent;
-}
-
-.schedule-table th+td {
- border-bottom: 0;
-}
-
-.schedule-table thead th:last-child {
- border-right-color: transparent;
-}
-
-.schedule-table .pop-background-image {
- background-image: url('../images/artists/joecalih-UmTZqmMvQcw-unsplash.jpg');
-}
-
-.schedule-table .rock-background-image {
- background-image: url('../images/artists/abstral-official-bdlMO9z5yco-unsplash.jpg');
-}
-
-.schedule-table .country-background-image {
- background-image: url('../images/artists/soundtrap-rAT6FJ6wltE-unsplash.jpg');
-}
-
-.table-background-image-wrap {
- background-repeat: no-repeat;
- background-position: center;
- background-size: cover;
- box-shadow: none;
- position: relative;
-}
-
-.schedule-table h3,
-.schedule-table p {
- color: var(--white-color);
- position: relative;
- z-index: 2;
-}
-
 
 /*---------------------------------------
   PRICING              
@@ -980,19 +785,6 @@ strong {
 
  .pricing-thumb {
   padding: 35px;
- }
-
- .schedule-table h3 {
-  font-size: 22px;
- }
-
- .schedule-table th {
-  padding: 20px;
- }
-
- .schedule-table tr,
- .schedule-table td {
-  padding: 25px;
  }
 
  .ticket-section {
