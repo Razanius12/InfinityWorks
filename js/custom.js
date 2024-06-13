@@ -1,7 +1,16 @@
-const video = document.createElement('video');
-video.src = 'video/infinity.mp4';
-video.preload = 'auto';
-document.body.appendChild(video);
+function retryLoadVideo(video, attempt) {
+  const maxAttempts = 20; // adjust to your liking
+  const backoffInterval = 3000; // adjust to your liking
+
+  if (attempt < maxAttempts) {
+    setTimeout(function() {
+      video.load();
+      retryLoadVideo(video, attempt + 1);
+    }, backoffInterval * Math.pow(2, attempt));
+  } else {
+    console.log("Failed to load video after " + maxAttempts + " attempts.");
+  }
+}
 
 (function ($) {
 
