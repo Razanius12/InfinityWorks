@@ -1,3 +1,8 @@
+const video = document.createElement('video');
+video.src = 'video/infinity.mp4';
+video.preload = 'auto';
+document.body.appendChild(video);
+
 function retryLoadVideo(video, attempt) {
   const maxAttempts = 20; // adjust to your liking
   const backoffInterval = 3000; // adjust to your liking
