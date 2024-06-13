@@ -856,7 +856,7 @@ strong {
  }
 
  .about-image {
-  border-radius: var(--border-radius-medium-16px);
+  border-radius: 11px;
   display: block;
  }
 }
