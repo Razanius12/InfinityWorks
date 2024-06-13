@@ -1,3 +1,7 @@
+const video = document.createElement('video');
+video.src = 'video/infinity.mp4';
+video.preload = 'auto';
+document.body.appendChild(video);
 
 (function ($) {
 
