@@ -49,9 +49,7 @@ function generateImageHTML() {
  for (let i = 1; i <= 23; i++) {
   html += `
    <div class="col-md-3 col-12 m-2">
-    <div class="artists-thumb">
-      <img src="images/gallery/${i}.jpg" class="artists-image img-fluid">
-     </div>
+     <img src="images/gallery/${i}.jpg" class="artists-image img-fluid">
    </div>
    `;
  }

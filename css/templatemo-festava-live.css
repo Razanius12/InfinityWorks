@@ -137,18 +137,6 @@ strong {
  font-weight: var(--font-weight-bold);
 }
 
-.card-text {
- color: var(--p-color);
- font-size: var(--p-font-size);
- font-weight: var(--font-weight-normal) !important;
-}
-
-#image-gallery {
- display: flex;
- flex-wrap: wrap;
- justify-content: center;
-}
-
 
 /*---------------------------------------
   SECTION               
@@ -156,10 +144,6 @@ strong {
 .section-padding {
  padding-top: 100px;
  padding-bottom: 100px;
-}
-
-.section-bg {
- background-color: var(--section-bg-color);
 }
 
 .section-overlay {
@@ -175,14 +159,6 @@ strong {
 
 .section-overlay+.container {
  position: relative;
-}
-
-
-/*---------------------------------------
-  CUSTOM ICON COLOR               
------------------------------------------*/
-.custom-icon {
- color: var(--secondary-color);
 }
 
 
@@ -206,24 +182,6 @@ strong {
  color: var(--white-color);
 }
 
-.custom-border-btn {
- background: transparent;
- border: 2px solid var(--custom-btn-bg-color);
- color: var(--custom-btn-bg-color);
-}
-
-.navbar-expand-lg .navbar-nav .nav-link.custom-btn:hover,
-.custom-border-btn:hover {
- background: var(--custom-btn-bg-hover-color);
- border-color: transparent;
- color: var(--white-color);
-}
-
-.custom-btn-bg-white {
- border-color: var(--white-color);
- color: var(--white-color);
-}
-
 
 /*---------------------------------------
   VIDEO              
@@ -239,16 +197,6 @@ strong {
  object-fit: cover;
  width: 100%;
  height: 100%;
-}
-
-
-/*---------------------------------------
-  SITE HEADER              
------------------------------------------*/
-.site-header {
- background-color: var(--primary-color);
- padding-top: 12px;
- padding-bottom: 12px;
 }
 
 
@@ -419,40 +367,9 @@ strong {
  position: relative;
 }
 
-.about-text-icon {
- background: var(--primary-color);
- border-radius: 100%;
- font-size: var(--h3-font-size);
- width: 70px;
- height: 70px;
- line-height: 70px;
- text-align: center;
-}
-
-.about-text-info {
- backdrop-filter: blur(5px) saturate(180%);
- -webkit-backdrop-filter: blur(5px) saturate(180%);
- background-color: rgba(255, 255, 255, 0.75);
- border-radius: var(--border-radius-medium);
- border: 1px solid rgba(209, 213, 219, 0.3);
- position: absolute;
- bottom: 0;
- right: 0;
- left: 0;
- margin: 20px;
- padding: 35px;
-}
-
 /*---------------------------------------
-  ARTISTS              
+  ARTISTS AND CARDS              
 -----------------------------------------*/
-.artists-thumb {
- display: flex;
- flex-direction: column;
- height: 100%; 
- position: relative;
- overflow: hidden;
-}
 
 .artists-image {
  border-radius: var(--border-radius-medium);
@@ -468,45 +385,16 @@ strong {
  border-top-right-radius: var(--border-radius-medium);
 }
 
-.artists-thumb:hover .artists-hover {
- transform: translateY(0);
- opacity: 1;
+.card-text {
+ color: var(--p-color);
+ font-size: var(--p-font-size);
+ font-weight: var(--font-weight-normal) !important;
 }
 
-.artists-hover {
- background-color: var(--primary-color);
- background-color: rgba(248, 203, 46, 0.75);
- border-radius: var(--border-radius-medium);
- backdrop-filter: blur(5px) saturate(180%);
- -webkit-backdrop-filter: blur(5px) saturate(180%);
- margin: 20px;
- padding: 35px;
- transition: all 0.5s ease;
- transform: translateY(100%);
- position: absolute;
- bottom: 0;
- right: 0;
- left: 0;
- opacity: 0;
-}
-
-.artists-hover p strong {
- color: var(--white-color);
- display: inline-block;
- min-width: 180px;
- margin-right: 20px;
-}
-
-.artists-hover p a {
- color: var(--secondary-color);
-}
-
-.artists-hover p a:hover {
- color: var(--white-color);
-}
-
-.artists-hover hr {
- margin: 1.5rem 0;
+#image-gallery {
+ display: flex;
+ flex-wrap: wrap;
+ justify-content: center;
 }
 
 
@@ -523,102 +411,6 @@ strong {
 
 
 /*---------------------------------------
-  PRICING              
------------------------------------------*/
-.pricing-thumb {
- border: 5px dotted var(--dark-color);
- border-radius: var(--border-radius-medium);
- position: relative;
- padding: 50px;
-}
-
-.pricing-thumb h3 small {
- display: inline-block;
- font-size: var(--p-font-size);
- margin-right: 15px;
-}
-
-.pricing-list {
- column-count: 2;
- padding-left: 20px;
-}
-
-.pricing-list-item {
- line-height: normal;
- margin-right: 10px;
- margin-bottom: 10px;
-}
-
-.pricing-tag {
- background-color: var(--secondary-color);
- border-radius: var(--border-radius-large);
- color: var(--white-color);
- font-weight: var(--font-weight-bold);
- text-align: center;
- display: flex;
- flex-direction: column;
- justify-content: center;
- align-items: center;
- width: 120px;
- height: 120px;
- position: absolute;
- top: 0;
- right: 0;
- margin: 20px;
-}
-
-.pricing-tag span {
- font-size: 180%;
- line-height: normal;
-}
-
-.pricing-thumb .link-fx-1 {
- color: var(--primary-color);
-}
-
-.pricing-thumb .link-fx-1:hover {
- color: var(--link-hover-color);
-}
-
-
-/*---------------------------------------
-  CONTACT               
------------------------------------------*/
-.google-map {
- border-radius: var(--border-radius-medium);
-}
-
-
-/*---------------------------------------
-  CUSTOM FORM               
------------------------------------------*/
-.custom-form .form-control {
- color: var(--p-color);
- margin-bottom: 24px;
- padding-top: 13px;
- padding-bottom: 13px;
- outline: none;
-}
-
-.custom-form button[type="submit"] {
- background: var(--custom-btn-bg-color);
- border: none;
- border-radius: var(--border-radius-large);
- color: var(--white-color);
- font-size: var(--p-font-size);
- font-weight: var(--font-weight-medium);
- transition: all 0.3s;
- margin-bottom: 0;
-}
-
-.custom-form button[type="submit"]:hover,
-.custom-form button[type="submit"]:focus {
- background: var(--custom-btn-bg-hover-color);
- border-color: transparent;
-}
-
-
-/*---------------------------------------
   SITE FOOTER              
 -----------------------------------------*/
 .site-footer {
@@ -629,38 +421,9 @@ strong {
  padding-bottom: 30px;
 }
 
-.site-footer-top {
- background-color: var(--secondary-color);
- background-image: url('../images/nainoa-shizuru-NcdG9mK3PBY-unsplash.jpg');
- background-repeat: no-repeat;
- margin-bottom: 70px;
- padding-top: 30px;
- padding-bottom: 30px;
-}
-
-.site-footer-bottom {
- border-top: 1px solid #1f1c1c;
- margin-top: 60px;
-}
-
-.site-footer-title {
- color: var(--primary-color);
-}
-
-.site-footer-link,
 .copyright-text,
 .distribution-text {
  color: var(--white-color);
-}
-
-.site-footer-links {
- padding-left: 0;
-}
-
-.site-footer-link-item {
- list-style: none;
- display: inline-block;
- margin-right: 15px;
 }
 
 .copyright-text {
