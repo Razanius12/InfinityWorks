@@ -1,3 +1,12 @@
+// Initialize Bootstrap carousel
+document.addEventListener('DOMContentLoaded', function () {
+ var myCarousel = new bootstrap.Carousel(document.getElementById('membersCarousel'), {
+  interval: 5000,
+  wrap: true,
+  touch: true
+ });
+});
+
 function retryLoadVideo(video, attempt) {
  const maxAttempts = 32; // adjust to your liking
  const backoffInterval = 3000; // adjust to your liking
@@ -62,7 +71,7 @@ function generateImageHTML() {
  let html = '';
  for (let i = 1; i <= 23; i++) {
   html += `
-   <div class="col-md-3 col-12 m-2">
+   <div class="col-lg-3 col-12 m-2">
      <img src="images/gallery/${i}.jpg" class="artists-image img-fluid">
    </div>
    `;
