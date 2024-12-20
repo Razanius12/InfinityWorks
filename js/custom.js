@@ -2,6 +2,20 @@ function retryLoadVideo(video, attempt) {
  const maxAttempts = 32; // adjust to your liking
  const backoffInterval = 3000; // adjust to your liking
 
+ // Only load when near viewport
+ if (isNearViewport(video)) {
+  video.load();
+ } else {
+  // Add intersection observer
+  const observer = new IntersectionObserver((entries) => {
+   if (entries[0].isIntersecting) {
+    video.load();
+    observer.disconnect();
+   }
+  });
+  observer.observe(video);
+ }
+
  if (attempt < maxAttempts) {
   setTimeout(function () {
    video.load();
@@ -17,7 +31,7 @@ function retryLoadVideo(video, attempt) {
  "use strict";
 
  // MENU
- $('.navbar-collapse a').on('click', function () {
+ $(document).on('click', '.navbar-collapse a', function () {
   $(".navbar-collapse").collapse('hide');
  });
 
@@ -44,16 +58,20 @@ function retryLoadVideo(video, attempt) {
 })(window.jQuery);
 
 
+// Update gallery loading in [js/custom.js](js/custom.js)
 function generateImageHTML() {
- let html = '';
- for (let i = 1; i <= 23; i++) {
-  html += `
-   <div class="col-md-3 col-12 m-2">
-     <img src="images/gallery/${i}.jpg" class="artists-image img-fluid">
-   </div>
-   `;
- }
- return html;
+ const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+   if (entry.isIntersecting) {
+    const img = entry.target;
+    img.src = img.dataset.src; // Load real image
+    observer.unobserve(img);
+   }
+  });
+ });
+
+ const images = document.querySelectorAll('.gallery-img[data-src]');
+ images.forEach(img => observer.observe(img));
 }
 
 const imageHTML = generateImageHTML();
