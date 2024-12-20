@@ -58,21 +58,16 @@ function retryLoadVideo(video, attempt) {
 })(window.jQuery);
 
 
-// Update gallery loading in [js/custom.js](js/custom.js)
 function generateImageHTML() {
- const observer = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-   if (entry.isIntersecting) {
-    const img = entry.target;
-    img.src = img.dataset.src; // Load real image
-    observer.unobserve(img);
-   }
-  });
- });
-
- const images = document.querySelectorAll('.gallery-img[data-src]');
- images.forEach(img => observer.observe(img));
+ let html = '';
+ for (let i = 1; i <= 23; i++) {
+  html += `
+   <div class="col-md-3 col-12 m-2">
+     <img src="images/gallery/${i}.jpg" class="artists-image img-fluid">
+   </div>
+   `;
+ }
+ return html;
 }
-
 const imageHTML = generateImageHTML();
 document.getElementById('image-gallery').innerHTML = imageHTML;
