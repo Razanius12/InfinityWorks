@@ -440,7 +440,7 @@ strong {
 }
 
 .carousel-inner {
- padding: 6px;
+ padding: 8px;
 }
 
 .carousel-item {
@@ -513,11 +513,11 @@ strong {
  }
 
  .carousel-control-prev {
-  left: 1.5rem;
+  left: 2rem;
  }
 
  .carousel-control-next {
-  right: 1.5rem;
+  right: 2rem;
  }
 }
 

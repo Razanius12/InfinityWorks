@@ -9,15 +9,15 @@ function adjustCarouselControls() {
    // For mobile screens
    if (cardImage) {
     const imageHeight = cardImage.offsetHeight;
-    const topPosition = imageHeight - 32;
+    const topPosition = imageHeight - 24;
     if (prevControl) prevControl.style.top = `${topPosition}px`;
     if (nextControl) nextControl.style.top = `${topPosition}px`;
    }
   } else if (window.matchMedia('(max-width: 620px)').matches) {
 
    const baseTop = 265;
-   const topPosition = baseTop - 32;
-   const finalPosition = Math.max(topPosition, 32);
+   const topPosition = baseTop - 24;
+   const finalPosition = Math.max(topPosition, 24);
 
    if (prevControl) prevControl.style.top = `${finalPosition}px`;
    if (nextControl) nextControl.style.top = `${finalPosition}px`;
