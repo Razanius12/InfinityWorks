@@ -1,11 +1,56 @@
-// Initialize Bootstrap carousel
+function adjustCarouselControls() {
+ const activeItem = document.querySelector('.carousel-item.active');
+ if (activeItem) {
+  const cardImage = activeItem.querySelector('.card-img-top.artists-card-image');
+  const prevControl = document.querySelector('.carousel-control-prev');
+  const nextControl = document.querySelector('.carousel-control-next');
+
+  if (window.matchMedia('(max-width: 576px)').matches) {
+   // For mobile screens
+   if (cardImage) {
+    const imageHeight = cardImage.offsetHeight;
+    const topPosition = imageHeight - 32;
+    if (prevControl) prevControl.style.top = `${topPosition}px`;
+    if (nextControl) nextControl.style.top = `${topPosition}px`;
+   }
+  } else if (window.matchMedia('(max-width: 620px)').matches) {
+
+   const baseTop = 265;
+   const topPosition = baseTop - 32;
+   const finalPosition = Math.max(topPosition, 32);
+
+   if (prevControl) prevControl.style.top = `${finalPosition}px`;
+   if (nextControl) nextControl.style.top = `${finalPosition}px`;
+  } else {
+   // Reset for larger screens
+   if (prevControl) prevControl.style.top = '';
+   if (nextControl) nextControl.style.top = '';
+  }
+ }
+}
+
+
+// Initialize carousel with the optimized control adjustment
 document.addEventListener('DOMContentLoaded', function () {
  var myCarousel = new bootstrap.Carousel(document.getElementById('membersCarousel'), {
   interval: 5000,
   wrap: true,
   touch: true
  });
+
+ adjustCarouselControls();
+
+ const carouselElement = document.getElementById('membersCarousel');
+ carouselElement.addEventListener('slid.bs.carousel', adjustCarouselControls);
+
+ // Debounce the resize event for better performance
+ let resizeTimeout;
+ window.addEventListener('resize', function () {
+  clearTimeout(resizeTimeout);
+  resizeTimeout = setTimeout(adjustCarouselControls, 250);
+ });
 });
+
 
 function retryLoadVideo(video, attempt) {
  const maxAttempts = 32; // adjust to your liking

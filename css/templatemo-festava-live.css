@@ -402,6 +402,7 @@ strong {
  display: flex;
  flex-wrap: wrap;
  justify-content: center;
+ filter: drop-shadow(0 6px 5px rgba(0, 0, 0, 0.25));
 }
 
 
@@ -431,12 +432,15 @@ strong {
  #membersCarousel {
   display: block !important;
   position: relative;
-  padding: 0 3rem;
  }
 
  #membersGrid {
   display: none !important;
  }
+}
+
+.carousel-inner {
+ padding: 6px;
 }
 
 .carousel-item {
@@ -455,16 +459,11 @@ strong {
 }
 
 .carousel-control-prev {
- left: -1.5rem;
+ left: -3rem;
 }
 
 .carousel-control-next {
- right: -1.5rem;
-}
-
-.carousel-control-prev:hover,
-.carousel-control-next:hover {
- opacity: 0.8;
+ right: -3rem;
 }
 
 .carousel-control-prev-icon,
@@ -489,6 +488,7 @@ strong {
 
 .card {
  height: 100%;
+ filter: drop-shadow(0 4px 4px rgba(0, 0, 0, 0.25));
 }
 
 /* Container padding for carousel controls */
@@ -499,13 +499,25 @@ strong {
  }
 }
 
-@media (max-width: 576px) {
+@media (max-width: 620px) {
+
+ .carousel-control-prev-icon,
+ .carousel-control-next-icon {
+  border: solid var(--section-bg-color);
+  border-width: 0 0.25rem 0.25rem 0;
+ }
+
+ .carousel-control-prev,
+ .carousel-control-next {
+  top: 47%;
+ }
+
  .carousel-control-prev {
-  left: 0;
+  left: 1.5rem;
  }
 
  .carousel-control-next {
-  right: 0
+  right: 1.5rem;
  }
 }
 
@@ -660,6 +672,7 @@ strong {
  .about-image {
   border-radius: 21px;
   display: block;
+  filter: drop-shadow(0 12px 8px rgba(0, 0, 0, 0.25));
  }
 
  .pricing-thumb {
