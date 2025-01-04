@@ -2,7 +2,7 @@
 
 [![Website Preview](images/3carsInfinityLogo.jpg)](https://razanius12.github.io/InfinityWorks/)
 
-A modern, responsive website for the Infinity drift team community. INFINITY represents a step forward in redefining what a drift team should look like.
+A modern, responsive website for the Infinity, one of the [FR Legends](https://play.google.com/store/apps/details?id=com.fengiiley.frlegends) community.
 
 ## Live Preview
 
@@ -146,32 +146,51 @@ The `adjustCarouselControls()` function in the `js/custom.js` file adjusts the v
 3. Update the loop range to include the new images.
 4. Add the new images to the `images/gallery` directory with the appropriate naming convention.
 
-### Adding New Sections
+### Adding New Sections and Navbars
 
 1. Open the `index.html` file.
 2. Copy an existing section's `<section>` block and paste it where you want the new section to appear.
 3. Update the `id` attribute and content as needed.
 4. Add corresponding styles in the `css/templatemo-festava-live.css` file if necessary.
-5. Update the `var sectionArray` in the `js/click-scroll.js` file to include the new section for smooth scrolling functionality.
-   - Example:
-     ```javascript
-     var sectionArray = [1, 2, 3, 4, 5, 6, 7]; // Added new section with id="section_7"
-     ```
-6. Ensure that the new section's `id` matches the `href` attribute in the corresponding navbar link in the `index.html` file.
+5. Locate the `<nav>` block.
+6. Copy an existing `<li class="nav-item">` block and paste it where you want the new navbar item to appear.
+7. Update the `href` attribute and text content.
    - Example:
      ```html
      <li class="nav-item">
        <a class="nav-link click-scroll" href="#section_7">New Section</a>
      </li>
      ```
+8. Update the `var sectionArray` in the `js/click-scroll.js` file to include the new section for smooth scrolling functionality.
+   - Example:
+     ```javascript
+     var sectionArray = [1, 2, 3, 4, 5, 6, 7]; // Added new section with id="section_7"
+     ```
+9. Ensure that the new section's `id` matches the `href` attribute in the corresponding navbar link in the `index.html` file.
+10. The function in `custom.js` handles the smooth scrolling effect when a navbar link is clicked. It uses jQuery to animate the scroll to the target section.
+    - Example:
+      ```javascript
+      $('.smoothscroll').click(function () {
+        var el = $(this).attr('href');
+        var elWrapped = $(el);
+        var header_height = $('.navbar').height();
 
-### Adding New Navbars
+        scrollToDiv(elWrapped, header_height);
+        return false;
 
-1. Open the `index.html` file.
-2. Locate the `<nav>` block.
-3. Copy an existing `<li class="nav-item">` block and paste it where you want the new navbar item to appear.
-4. Update the `href` attribute and text content.
-5. If necessary, update the JavaScript in `js/custom.js` to handle new navbar interactions.
+        function scrollToDiv(element, navheight) {
+          var offset = element.offset();
+          var offsetTop = offset.top;
+          var totalScroll = offsetTop - navheight;
+
+          $('body,html').animate({
+            scrollTop: totalScroll
+          }, 300);
+        }
+      });
+      ```
+11. The `click-scroll.js` file ensures that the active navbar link is highlighted based on the scroll position. It updates the active class on the navbar links as the user scrolls through the sections.
+12. The `jquery.sticky.js` file makes the navbar stick to the top of the page as the user scrolls down. This ensures that the navbar is always visible for easy navigation.
 
 ## Social Links
 
