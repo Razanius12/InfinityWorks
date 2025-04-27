@@ -7,6 +7,7 @@ A modern, responsive website for the Infinity, one of the [FR Legends](https://p
 ## Live Preview
 
 The website is available at:
+
 - GitHub Pages: [https://razanius12.github.io/InfinityWorks/](https://razanius12.github.io/InfinityWorks/)
 - Main URL: [https://infinityworks.rf.gd/](https://infinityworks.rf.gd/)
 - Alternate URL: [https://infinityworks.vercel.app/](https://infinityworks.vercel.app/)
@@ -100,6 +101,7 @@ The `adjustCarouselControls()` function in the `js/custom.js` file adjusts the v
 1. **Change Control Positioning**:
    - To change the positioning of the controls for mobile screens, modify the `topPosition` calculation within the `if (window.matchMedia('(max-width: 576px)').matches)` block.
    - Example:
+
      ```javascript
      if (window.matchMedia('(max-width: 576px)').matches) {
        const topPosition = imageHeight - 50; // Adjusted from -24 to -50
@@ -111,6 +113,7 @@ The `adjustCarouselControls()` function in the `js/custom.js` file adjusts the v
 2. **Add New Screen Size Conditions**:
    - To add a new condition for a different screen size, add a new `else if` block with the desired `window.matchMedia` query.
    - Example:
+
      ```javascript
      else if (window.matchMedia('(max-width: 768px)').matches) {
        const topPosition = 200; // Custom position for screens up to 768px
@@ -122,6 +125,7 @@ The `adjustCarouselControls()` function in the `js/custom.js` file adjusts the v
 3. **Modify Control Visibility**:
    - To hide or show the controls based on the number of items, you can add logic to check the number of carousel items and adjust the visibility accordingly.
    - Example:
+
      ```javascript
      const carouselItems = document.querySelectorAll('.carousel-item');
      if (carouselItems.length <= 1) {
@@ -157,19 +161,24 @@ The `adjustCarouselControls()` function in the `js/custom.js` file adjusts the v
 6. Copy an existing `<li class="nav-item">` block and paste it where you want the new navbar item to appear.
 7. Update the `href` attribute and text content.
    - Example:
+
      ```html
      <li class="nav-item">
        <a class="nav-link click-scroll" href="#section_7">New Section</a>
      </li>
      ```
+
 8. Update the `var sectionArray` in the `js/click-scroll.js` file to include the new section for smooth scrolling functionality.
    - Example:
+
      ```javascript
      var sectionArray = [1, 2, 3, 4, 5, 6, 7]; // Added new section with id="section_7"
      ```
+
 9. Ensure that the new section's `id` matches the `href` attribute in the corresponding navbar link in the `index.html` file.
 10. The function in `custom.js` handles the smooth scrolling effect when a navbar link is clicked. It uses jQuery to animate the scroll to the target section.
     - Example:
+
       ```javascript
       $('.smoothscroll').click(function () {
         var el = $(this).attr('href');
@@ -190,6 +199,7 @@ The `adjustCarouselControls()` function in the `js/custom.js` file adjusts the v
         }
       });
       ```
+
 11. The `click-scroll.js` file ensures that the active navbar link is highlighted based on the scroll position. It updates the active class on the navbar links as the user scrolls through the sections.
 12. The `jquery.sticky.js` file makes the navbar stick to the top of the page as the user scrolls down. This ensures that the navbar is always visible for easy navigation.
 
@@ -201,6 +211,7 @@ The `adjustCarouselControls()` function in the `js/custom.js` file adjusts the v
 ## Theme Details
 
 The website uses a custom color scheme:
+
 - Primary Color: #6376ca
 - Secondary Color: #273987
 - Dark Color: #000000
