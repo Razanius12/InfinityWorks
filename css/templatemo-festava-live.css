@@ -405,6 +405,42 @@ strong {
  filter: drop-shadow(0 6px 5px rgba(0, 0, 0, 0.25));
 }
 
+#other-gallery {
+ display: flex;
+ flex-wrap: wrap;
+ justify-content: center;
+ filter: drop-shadow(0 6px 5px rgba(0, 0, 0, 0.25));
+}
+
+/* Add these new styles */
+.other-gallery-item {
+ position: relative;
+ display: inline-block;
+}
+
+.social-icon-container {
+ position: absolute;
+ bottom: 10px;
+ right: 10px;
+}
+
+#other-gallery .social-icon-link {
+ background: var(--secondary-color);
+ border-radius: var(--border-radius-large);
+ color: var(--white-color);
+ font-size: var(--copyright-font-size);
+ display: block;
+ margin-right: 5px;
+ text-align: center;
+ width: 35px;
+ height: 35px;
+ line-height: 36px;
+}
+
+#other-gallery .social-icon-link:hover {
+ background: var(--primary-color);
+}
+
 
 /*---------------------------------------
   CAROUSEL          
@@ -616,6 +652,117 @@ strong {
 
 
 /*---------------------------------------
+  IMAGE VIEWER
+-----------------------------------------*/
+
+/* Image Viewer Styles */
+.image-viewer {
+ display: none;
+ position: fixed;
+ z-index: 9999;
+ padding: 10px;
+ left: 0;
+ top: 0;
+ width: 100%;
+ height: 100%;
+ background-color: rgba(0, 0, 0, 0.9);
+ overflow: hidden;
+ touch-action: none;
+}
+
+.viewer-content {
+ position: relative;
+ top: 3%;
+ height: 85%;
+ margin: auto;
+ display: block;
+ object-fit: contain;
+ transition: transform 0.3s ease-out;
+ user-select: none;
+ -webkit-user-drag: none;
+ transform-origin: center center;
+}
+
+.close-btn {
+ position: absolute;
+ right: 20px;
+ top: 20px;
+ color: #fff;
+ font-size: 40px;
+ cursor: pointer;
+ z-index: 10000;
+}
+
+.viewer-controls {
+ position: absolute;
+ bottom: 20px;
+ left: 50%;
+ transform: translateX(-50%);
+ display: flex;
+ gap: 20px;
+}
+
+.zoom-controls {
+ position: absolute;
+ top: 20px;
+ left: 20px;
+ display: flex;
+ gap: 10px;
+ z-index: 10000;
+}
+
+.zoom-btn {
+ background: var(--custom-btn-bg-color);
+ border: none;
+ color: white;
+ width: 40px;
+ height: 40px;
+ font-size: 20px;
+ cursor: pointer;
+ border-radius: 50%;
+ display: flex;
+ align-items: center;
+ justify-content: center;
+}
+
+.zoom-btn:hover {
+ background: var(--custom-btn-bg-hover-color);
+}
+
+.zooming {
+ transition: none !important;
+}
+
+.nav-btn {
+ background: var(--custom-btn-bg-color);
+ border: none;
+ color: white;
+ padding: 10px 20px;
+ font-size: 20px;
+ cursor: pointer;
+ border-radius: 5px;
+}
+
+.nav-btn:hover {
+ background: var(--custom-btn-bg-hover-color);
+}
+
+/* Touch gesture hint for mobile */
+@media (max-width: 768px) {
+ .viewer-content {
+  position: absolute;
+  top: 47%;
+  bottom: 53%;
+  left: 0px;
+  transform: translate(-50%, -50%);
+  height: unset;
+  max-width: 100%;
+  margin: auto;
+ }
+}
+
+
+/*---------------------------------------
   RESPONSIVE STYLES               
 -----------------------------------------*/
 
@@ -688,6 +835,11 @@ strong {
  }
 
  .row-cols-md-3>* {
+  flex: 0 0 auto;
+  width: 100% !important;
+ }
+
+ .col-md-6 {
   flex: 0 0 auto;
   width: 100% !important;
  }
