@@ -130,295 +130,286 @@ document.getElementById('image-gallery').innerHTML = imageHTML;
 
 // Image Viewer
 function initializeImageViewer() {
- const viewer = document.getElementById('imageViewer');
- const viewerImg = document.getElementById('expandedImg');
- const closeBtn = document.querySelector('.close-btn');
- const prevBtn = document.querySelector('.nav-btn.prev');
- const nextBtn = document.querySelector('.nav-btn.next');
-
- // Add zoom controls to the viewer
- const zoomControls = document.createElement('div');
- zoomControls.className = 'zoom-controls';
- zoomControls.innerHTML = `
-  <button class="zoom-btn zoom-in">+</button>
-  <button class="zoom-btn zoom-out">-</button>
-  <button class="zoom-btn zoom-reset">↺</button>
- `;
- viewer.appendChild(zoomControls);
-
- const zoomInBtn = viewer.querySelector('.zoom-in');
- const zoomOutBtn = viewer.querySelector('.zoom-out');
- const zoomResetBtn = viewer.querySelector('.zoom-reset');
-
- let currentImageIndex = 0;
- let images = [];
- let scale = 1;
- let panning = false;
- let pointX = 0;
- let pointY = 0;
- let start = { x: 0, y: 0 };
-
- // Collect only gallery images, excluding specific elements
- document.querySelectorAll('body img').forEach(img => {
-  // Skip images with these classes or in these containers
-  const shouldSkip =
-   img.classList.contains('image-viewer') ||
-   img.classList.contains('navbar-brand') ||
-   img.closest('.navbar') ||
-   img.closest('.image-viewer');
-
-  if (!shouldSkip) {
-   images.push(img.src);
-   img.addEventListener('click', function () {
-    currentImageIndex = images.indexOf(this.src);
-    showImage(currentImageIndex);
-    viewer.style.display = 'block';
-   });
+ const DOM = {
+  viewer: document.getElementById('imageViewer'),
+  image: document.getElementById('expandedImg'),
+  controls: {
+   close: document.querySelector('.close-btn'),
+   prev: document.querySelector('.nav-btn.prev'),
+   next: document.querySelector('.nav-btn.next'),
+   zoom: document.createElement('div')
   }
- });
+ };
+
+ const state = {
+  currentIndex: 0,
+  images: [],
+  scale: 1,
+  isDragging: false,
+  transform: { x: 0, y: 0 },
+  pointer: { x: 0, y: 0 },
+  touch: {
+   start: { x: 0, y: 0 },
+   move: { x: 0, y: 0 },
+   distance: 0
+  },
+  config: {
+   maxZoom: 5,
+   minZoom: 1,
+   zoomStep: 1.5,
+   swipeThreshold: 50
+  }
+ };
+
+ // Initialize zoom controls
+ function setupZoomControls() {
+  DOM.controls.zoom.className = 'zoom-controls';
+  DOM.controls.zoom.innerHTML = `
+            <button class="zoom-btn zoom-in">+</button>
+            <button class="zoom-btn zoom-out">-</button>
+            <button class="zoom-btn zoom-reset">↺</button>
+        `;
+  DOM.viewer.appendChild(DOM.controls.zoom);
+
+  DOM.controls.zoom.querySelector('.zoom-in').onclick = () => handleZoom(1);
+  DOM.controls.zoom.querySelector('.zoom-out').onclick = () => handleZoom(-1);
+  DOM.controls.zoom.querySelector('.zoom-reset').onclick = resetView;
+ }
+
+ function updateTransform() {
+  const { x, y } = state.transform;
+  DOM.image.style.transform = `translate(${x}px, ${y}px) scale(${state.scale})`;
+ }
+
+ function toggleNavigationButtons(show) {
+  const display = show ? 'block' : 'none';
+  DOM.controls.prev.style.display = display;
+  DOM.controls.next.style.display = display;
+ }
+
+ function resetView() {
+  state.scale = 1;
+  state.transform = { x: 0, y: 0 };
+  updateTransform();
+  DOM.image.style.cursor = 'default';
+  toggleNavigationButtons(true);
+ }
+
+ function handleZoom(direction, factor = state.config.zoomStep) {
+  const prevScale = state.scale;
+  state.scale = direction > 0
+   ? Math.min(state.scale * factor, state.config.maxZoom)
+   : Math.max(state.scale / factor, state.config.minZoom);
+
+  if (prevScale !== state.scale) {
+   if (state.scale === 1) {
+    state.transform = { x: 0, y: 0 }; // Reset position when zoomed out
+   }
+   DOM.image.style.cursor = state.scale > 1 ? 'grab' : 'default';
+   toggleNavigationButtons(state.scale === 1);
+   updateTransform();
+  }
+ }
 
  function showImage(index) {
-  viewerImg.src = images[index];
-  currentImageIndex = index;
-  resetZoom();
- }
-
- function resetZoom() {
-  scale = 1;
-  pointX = 0;
-  pointY = 0;
-  updateImageTransform();
- }
-
- function updateImageTransform() {
-  viewerImg.style.transform = `translate(${pointX}px, ${pointY}px) scale(${scale})`;
- }
-
- function nextImage() {
-  if (currentImageIndex < images.length - 1) {
-   currentImageIndex++;
-   showImage(currentImageIndex);
-  } else {
-   // Bounce effect at the end
-   viewerImg.style.transform = `translateX(-50px)`;
-   setTimeout(() => {
-    viewerImg.style.transform = `translateX(0px)`;
-   }, 200);
+  if (index >= 0 && index < state.images.length) {
+   DOM.image.src = state.images[index];
+   state.currentIndex = index;
+   resetView();
   }
  }
 
- function prevImage() {
-  if (currentImageIndex > 0) {
-   currentImageIndex--;
-   showImage(currentImageIndex);
-  } else {
-   // Bounce effect at the start
-   viewerImg.style.transform = `translateX(50px)`;
-   setTimeout(() => {
-    viewerImg.style.transform = `translateX(0px)`;
-   }, 200);
-  }
- }
+ function handleSwipe(deltaX) {
+  if (state.scale === 1 && Math.abs(deltaX) > state.config.swipeThreshold) {
+   const direction = deltaX > 0 ? -1 : 1;
+   const newIndex = state.currentIndex + direction;
 
- // Touch events
- viewer.addEventListener('touchstart', e => {
-  touchStartX = e.touches[0].clientX;
-  touchStartY = e.touches[0].clientY;
-  isDragging = true;
-  viewerImg.style.transition = 'none';
- });
-
- viewer.addEventListener('touchmove', e => {
-  if (!isDragging) return;
-
-  const deltaX = e.touches[0].clientX - touchStartX;
-  const deltaY = e.touches[0].clientY - touchStartY;
-
-  // If vertical scrolling is greater than horizontal, don't move the image
-  if (Math.abs(deltaY) > Math.abs(deltaX)) return;
-
-  e.preventDefault();
-  currentTranslateX = deltaX;
-  viewerImg.style.transform = `translateX(${deltaX}px)`;
- });
-
- viewer.addEventListener('touchend', e => {
-  touchEndX = e.changedTouches[0].clientX;
-  touchEndY = e.changedTouches[0].clientY;
-  isDragging = false;
-  viewerImg.style.transition = 'transform 0.3s ease-out';
-
-  handleSwipe();
- });
-
- // Zoom controls
- zoomInBtn.addEventListener('click', () => {
-  scale = Math.min(scale * 1.5, 5); // Max zoom 5x
-  updateImageTransform();
- });
-
- zoomOutBtn.addEventListener('click', () => {
-  scale = Math.max(scale / 1.5, 1); // Min zoom 1x
-  if (scale === 1) {
-   pointX = 0;
-   pointY = 0;
-  }
-  updateImageTransform();
- });
-
- zoomResetBtn.addEventListener('click', resetZoom);
-
- // Mouse wheel zoom
- viewer.addEventListener('wheel', (e) => {
-  e.preventDefault();
-  const delta = Math.sign(e.deltaY);
-  const rect = viewerImg.getBoundingClientRect();
-  const mouseX = e.clientX - rect.left;
-  const mouseY = e.clientY - rect.top;
-
-  if (delta < 0) {
-   scale = Math.min(scale * 1.1, 5);
-  } else {
-   scale = Math.max(scale / 1.1, 1);
-   if (scale === 1) {
-    pointX = 0;
-    pointY = 0;
-   }
-  }
-  updateImageTransform();
- });
-
- // Pan functionality
- viewerImg.addEventListener('mousedown', (e) => {
-  e.preventDefault();
-  panning = true;
-  viewerImg.classList.add('zooming');
-  start = { x: e.clientX - pointX, y: e.clientY - pointY };
- });
-
- document.addEventListener('mousemove', (e) => {
-  if (!panning) return;
-
-  pointX = e.clientX - start.x;
-  pointY = e.clientY - start.y;
-  updateImageTransform();
- });
-
- document.addEventListener('mouseup', () => {
-  panning = false;
-  viewerImg.classList.remove('zooming');
- });
-
- // Touch events for mobile
- let lastDistance = 0;
-
- viewer.addEventListener('touchstart', (e) => {
-  if (e.touches.length === 2) {
-   e.preventDefault();
-   const touch1 = e.touches[0];
-   const touch2 = e.touches[1];
-   lastDistance = Math.hypot(
-    touch2.clientX - touch1.clientX,
-    touch2.clientY - touch1.clientY
-   );
-  }
- });
-
- viewer.addEventListener('touchmove', (e) => {
-  if (e.touches.length === 2) {
-   e.preventDefault();
-   const touch1 = e.touches[0];
-   const touch2 = e.touches[1];
-   const distance = Math.hypot(
-    touch2.clientX - touch1.clientX,
-    touch2.clientY - touch1.clientY
-   );
-
-   const delta = distance - lastDistance;
-   if (Math.abs(delta) > 1) {
-    scale = Math.min(Math.max(scale * (1 + delta / 100), 1), 5);
-    updateImageTransform();
-   }
-   lastDistance = distance;
-  }
- });
-
- // Add click event listener to the viewer container
- viewer.addEventListener('click', function (e) {
-  // Check if the click is outside the image
-  if (e.target === viewer || e.target === closeBtn) {
-   viewer.style.display = 'none';
-   document.body.style.overflow = '';
-  }
- });
-
- // Prevent image click from closing the viewer
- viewerImg.addEventListener('click', function (e) {
-  e.stopPropagation();
- });
-
- // Prevent navigation buttons from closing the viewer
- prevBtn.addEventListener('click', function (e) {
-  e.stopPropagation();
- });
-
- nextBtn.addEventListener('click', function (e) {
-  e.stopPropagation();
- });
-
- function handleSwipe() {
-  const swipeDistance = touchEndX - touchStartX;
-  const minSwipeDistance = 50;
-
-  if (Math.abs(swipeDistance) > minSwipeDistance) {
-   if (swipeDistance > 0 && currentImageIndex > 0) {
-    prevImage();
-   } else if (swipeDistance < 0 && currentImageIndex < images.length - 1) {
-    nextImage();
+   if (newIndex >= 0 && newIndex < state.images.length) {
+    showImage(newIndex);
    } else {
-    // Reset position if at the end of the gallery
-    viewerImg.style.transform = `translateX(0px)`;
+    // Bounce effect if at end of gallery
+    state.transform.x = 0;
+    updateTransform();
    }
   } else {
-   // Reset position if swipe wasn't long enough
-   viewerImg.style.transform = `translateX(0px)`;
+   state.transform.x = 0;
+   updateTransform();
   }
  }
 
- // Button controls
- nextBtn.addEventListener('click', nextImage);
- prevBtn.addEventListener('click', prevImage);
- closeBtn.addEventListener('click', () => {
-  viewer.style.display = 'none';
-  viewerImg.style.transform = `translateX(0px)`;
- });
+ function handleOutsideClick(e) {
+  // Check if click is outside the image and zoom controls
+  if (!DOM.image.contains(e.target) &&
+   !DOM.controls.zoom.contains(e.target) &&
+   !DOM.controls.prev.contains(e.target) &&
+   !DOM.controls.next.contains(e.target)) {
+   DOM.viewer.style.display = 'none';
+   resetView();
+  }
+ }
 
- // Keyboard navigation
- document.addEventListener('keydown', e => {
-  if (viewer.style.display === 'block') {
-   if (e.key === 'ArrowRight') nextImage();
-   if (e.key === 'ArrowLeft') prevImage();
-   if (e.key === 'Escape') {
-    viewer.style.display = 'none';
-    viewerImg.style.transform = `translateX(0px)`;
-   }
-   if (e.key === '+' || e.key === '=') {
+ const handlers = {
+  mouse: {
+   down: (e) => {
     e.preventDefault();
-    scale = Math.min(scale * 1.5, 5); // Max zoom 5x
-    updateImageTransform();
-   }
-   if (e.key === '-' || e.key === '_') {
-    e.preventDefault();
-    scale = Math.max(scale / 1.5, 1); // Min zoom 1x
-    if (scale === 1) {
-     pointX = 0;
-     pointY = 0;
+    state.isDragging = true;
+    state.pointer = { x: e.clientX, y: e.clientY };
+    DOM.image.style.cursor = state.scale > 1 ? 'grabbing' : 'default';
+    DOM.image.style.transition = 'none';
+   },
+   move: (e) => {
+    if (!state.isDragging) return;
+
+    const deltaX = e.clientX - state.pointer.x;
+    const deltaY = e.clientY - state.pointer.y;
+
+    if (state.scale > 1) {
+     // Pan when zoomed in
+     state.transform.x += deltaX;
+     state.transform.y += deltaY;
     }
-    updateImageTransform();
+
+    updateTransform();
+    state.pointer = { x: e.clientX, y: e.clientY };
+   },
+   up: () => {
+    if (!state.isDragging) return;
+
+    DOM.image.style.transition = 'transform 0.3s ease-out';
+
+    if (state.scale === 1) {
+     handleSwipe(state.transform.x);
+    }
+
+    state.isDragging = false;
+    DOM.image.style.cursor = state.scale > 1 ? 'grab' : 'default';
+   },
+   wheel: (e) => {
+    e.preventDefault();
+    handleZoom(e.deltaY < 0, 1.1);
    }
+  },
+  touch: {
+   start: (e) => {
+    if (e.touches.length === 1) {
+     const touch = e.touches[0];
+     state.isDragging = true;
+     state.pointer = { x: touch.clientX, y: touch.clientY };
+     state.touch.start = { x: touch.clientX, y: touch.clientY };
+     DOM.image.style.transition = 'none';
+    } else if (e.touches.length === 2) {
+     state.touch.distance = Math.hypot(
+      e.touches[1].clientX - e.touches[0].clientX,
+      e.touches[1].clientY - e.touches[0].clientY
+     );
+    }
+   },
+   move: (e) => {
+    if (e.touches.length === 1 && state.isDragging) {
+     const touch = e.touches[0];
+     const deltaX = touch.clientX - state.pointer.x;
+     const deltaY = touch.clientY - state.pointer.y;
+
+     if (state.scale > 1) {
+      state.transform.x += deltaX;
+      state.transform.y += deltaY;
+     } else {
+      state.transform.x = touch.clientX - state.touch.start.x;
+     }
+
+     updateTransform();
+     state.pointer = { x: touch.clientX, y: touch.clientY };
+    } else if (e.touches.length === 2) {
+     const currentDistance = Math.hypot(
+      e.touches[1].clientX - e.touches[0].clientX,
+      e.touches[1].clientY - e.touches[0].clientY
+     );
+     handleZoom(currentDistance > state.touch.distance ? 1 : -1, 1.1);
+     state.touch.distance = currentDistance;
+    }
+   },
+   end: () => {
+    if (!state.isDragging) return;
+
+    DOM.image.style.transition = 'transform 0.3s ease-out';
+
+    if (state.scale === 1) {
+     handleSwipe(state.transform.x);
+    }
+
+    state.isDragging = false;
+   }
+  },
+  keyboard: (e) => {
+   if (DOM.viewer.style.display !== 'block') return;
+
+   const actions = {
+    'ArrowRight': () => state.scale === 1 && showImage(state.currentIndex + 1),
+    'ArrowLeft': () => state.scale === 1 && showImage(state.currentIndex - 1),
+    'Escape': () => {
+     DOM.viewer.style.display = 'none';
+     resetView();
+    },
+    '+': () => handleZoom(1),
+    '=': () => handleZoom(1),
+    '-': () => handleZoom(-1),
+    '_': () => handleZoom(-1)
+   };
+
+   if (actions[e.key]) {
+    e.preventDefault();
+    actions[e.key]();
+   }
+  },
+  outside: {
+   click: (e) => {
+    if (state.isDragging) return; // Don't close if dragging
+    handleOutsideClick(e);
+   },
+   touch: (e) => {
+    if (state.isDragging) return; // Don't close if dragging
+    if (e.touches.length === 1) { // Only handle single touch
+     handleOutsideClick(e.touches[0]);
+    }
+   }
+  }
+ };
+
+ DOM.viewer.addEventListener('mousedown', handlers.outside.click);
+ DOM.viewer.addEventListener('touchstart', handlers.outside.touch);
+
+ // Setup event listeners
+ setupZoomControls();
+
+ DOM.image.addEventListener('mousedown', handlers.mouse.down);
+ document.addEventListener('mousemove', handlers.mouse.move);
+ document.addEventListener('mouseup', handlers.mouse.up);
+ DOM.viewer.addEventListener('wheel', handlers.mouse.wheel);
+
+ DOM.viewer.addEventListener('touchstart', handlers.touch.start);
+ DOM.viewer.addEventListener('touchmove', handlers.touch.move);
+ DOM.viewer.addEventListener('touchend', handlers.touch.end);
+
+ document.addEventListener('keydown', handlers.keyboard);
+
+ DOM.controls.next.onclick = () => state.scale === 1 && showImage(state.currentIndex + 1);
+ DOM.controls.prev.onclick = () => state.scale === 1 && showImage(state.currentIndex - 1);
+ DOM.controls.close.onclick = () => {
+  DOM.viewer.style.display = 'none';
+  resetView();
+ };
+
+ // Initialize images
+ document.querySelectorAll('img').forEach(img => {
+  if (!img.closest('.navbar') && !img.closest('.image-viewer')) {
+   state.images.push(img.src);
+   img.addEventListener('click', () => {
+    state.currentIndex = state.images.indexOf(img.src);
+    showImage(state.currentIndex);
+    DOM.viewer.style.display = 'block';
+   });
   }
  });
 }
 
-// Initialize the viewer when DOM is loaded
 document.addEventListener('DOMContentLoaded', initializeImageViewer);
