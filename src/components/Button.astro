@@ -1,0 +1,107 @@
+---
+/**
+ * Responsive Button Component
+ * 
+ * Usage:
+ * <Button href="#section" label="Click me" variant="primary" />
+ */
+
+interface Props {
+  href?: string;
+  label: string;
+  variant?: 'primary' | 'secondary' | 'outline';
+  size?: 'sm' | 'md' | 'lg';
+  external?: boolean;
+  onclick?: string;
+  class?: string;
+}
+
+const {
+  href = '#',
+  label,
+  variant = 'primary',
+  size = 'md',
+  external = false,
+  onclick,
+  class: className
+} = Astro.props;
+
+const buttonClass = [
+  'btn',
+  `btn-${variant}`,
+  `btn-${size}`,
+  className
+].filter(Boolean).join(' ');
+---
+
+<a
+  href={href}
+  class={buttonClass}
+  target={external ? '_blank' : '_self'}
+  rel={external ? 'noopener noreferrer' : ''}
+  {onclick}
+>
+  {label}
+</a>
+
+<style>
+  .btn {
+    display: inline-block;
+    padding: 0.75rem 1.5rem;
+    border-radius: 4px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    border: 2px solid transparent;
+    cursor: pointer;
+    text-align: center;
+  }
+
+  .btn-primary {
+    background-color: var(--secondary-color, #ff6b6b);
+    color: white;
+    border-color: var(--secondary-color, #ff6b6b);
+  }
+
+  .btn-primary:hover {
+    background-color: transparent;
+    color: var(--secondary-color, #ff6b6b);
+  }
+
+  .btn-secondary {
+    background-color: transparent;
+    color: var(--secondary-color, #ff6b6b);
+    border-color: var(--secondary-color, #ff6b6b);
+  }
+
+  .btn-secondary:hover {
+    background-color: var(--secondary-color, #ff6b6b);
+    color: white;
+  }
+
+  .btn-outline {
+    background-color: transparent;
+    color: white;
+    border-color: white;
+  }
+
+  .btn-outline:hover {
+    background-color: white;
+    color: var(--primary-color, #273987);
+  }
+
+  .btn-sm {
+    padding: 0.5rem 1rem;
+    font-size: 0.875rem;
+  }
+
+  .btn-md {
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+  }
+
+  .btn-lg {
+    padding: 1rem 2rem;
+    font-size: 1.125rem;
+  }
+</style>

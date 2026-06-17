@@ -1,0 +1,65 @@
+---
+/**
+ * Reusable Social Links Component
+ * 
+ * Usage:
+ * <SocialLinks links={socialArray} />
+ */
+
+interface SocialLink {
+  platform: string;
+  icon: string;
+  url: string;
+  label?: string;
+}
+
+interface Props {
+  links: SocialLink[];
+  className?: string;
+}
+
+const { links, className = 'social-icon' } = Astro.props;
+---
+
+<ul class={className}>
+  {links.map((link) => (
+    <li class="social-icon-item">
+      <a href={link.url} class="social-icon-link" target="_blank" rel="noopener noreferrer" title={link.label || link.platform}>
+        <span class={link.icon}></span>
+      </a>
+    </li>
+  ))}
+</ul>
+
+<style>
+  .social-icon {
+    list-style: none;
+    display: flex;
+    gap: 1.5rem;
+    justify-content: center;
+  }
+
+  .social-icon-item {
+    display: inline-block;
+  }
+
+  .social-icon-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    border: 2px solid var(--secondary-color, #ff6b6b);
+    border-radius: 50%;
+    color: var(--secondary-color, #ff6b6b);
+    transition: all 0.3s ease;
+    font-size: 1.2rem;
+    text-decoration: none;
+  }
+
+  .social-icon-link:hover {
+    background-color: var(--secondary-color, #ff6b6b);
+    color: white;
+    transform: translateY(-3px);
+  }
+</style>

@@ -1,0 +1,55 @@
+---
+interface Video {
+  id: string;
+  embedId: string;
+}
+
+const videos: Video[] = [
+  {
+    id: 'video1',
+    embedId: 'Bq6iVp4sI-E'
+  },
+  {
+    id: 'video2',
+    embedId: 'lGx1qs0bTac'
+  },
+  {
+    id: 'video3',
+    embedId: 'AehVF9miRQ4'
+  },
+  {
+    id: 'video4',
+    embedId: '5aMIIS2h3wA'
+  }
+];
+---
+
+<section class="schedule-section section-padding" id="section_4">
+  <div class="container">
+    <div class="row justify-content-center">
+
+      <div class="col-12 text-center">
+        <h2 class="text-white mb-5">Videos</h2>
+      </div>
+    </div>
+
+    <div class="row row-cols-1 row-cols-md-2 g-4 justify-content-center">
+
+      {videos.map((video) => (
+        <div class="col-auto">
+          <div class="artists-image card p-3">
+            <iframe
+              width="560"
+              height="315"
+              src={`https://www.youtube.com/embed/${video.embedId}`}
+              title="YouTube video player"
+              frameborder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              referrerpolicy="strict-origin-when-cross-origin"
+              allowfullscreen></iframe>
+          </div>
+        </div>
+      ))}
+
+    </div>
+</section>

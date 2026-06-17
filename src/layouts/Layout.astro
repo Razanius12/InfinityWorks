@@ -1,0 +1,448 @@
+---
+import '@/styles/globals.css';
+
+interface Props {
+  title: string;
+}
+
+const { title } = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="keywords"
+      content="drift team, infinity, car racing, motorsport, automotive, speed, racing community, drift culture, car enthusiasts, car racing team, .kxdy_, razanius12, sobremisasa, aceroze1, flyday., carbonmetallic, masaki, mangosteezy, youtube, video, gallery, instagram, discord, social media, community"
+    />
+    <meta
+      name="description"
+      content="Where the love of drifting meets the thrill of the ride. Join our community and experience the rush."
+    />
+    <meta name="subject" content="Drifting and Car Racing Community | Infinity Works" />
+    <meta name="language" content="EN" />
+    <meta name="topic" content="Racing Community and Forum" />
+    <meta name="google" content="nositelinkssearchbox" />
+    <meta name="author" content="Razanius12" />
+    <meta name="url" content="https://razanius12.github.io/InfinityWorks" />
+
+    <meta property="og:title" content="Infinity Works - Born From The Ashes" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://razanius12.github.io/InfinityWorks" />
+    <meta property="og:image" content="https://razanius12.github.io/InfinityWorks/images/3carsInfinityLogo.jpg" />
+    <meta property="og:site_name" content="Infinity" />
+    <meta
+      property="og:description"
+      content="Where the love of drifting meets the thrill of the ride. Join our community and experience the rush."
+    />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:image:alt" content="Infinity Works Logo" />
+    <meta property="og:image:type" content="image/jpeg" />
+    <meta property="og:image:width" content="1280" />
+    <meta property="og:image:height" content="960" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Infinity Works - Born From The Ashes" />
+    <meta
+      name="twitter:description"
+      content="Where the love of drifting meets the thrill of the ride. Join our community and experience the rush."
+    />
+    <meta name="twitter:image" content="https://razanius12.github.io/InfinityWorks/images/3carsInfinityLogo.jpg" />
+    <meta name="twitter:site" content="@InfinityWorks" />
+
+    <meta name="instagram:card" content="summary_large_image" />
+    <meta name="instagram:title" content="Infinity Works - Born From The Ashes" />
+    <meta
+      name="instagram:description"
+      content="Where the love of drifting meets the thrill of the ride. Join our community and experience the rush."
+    />
+    <meta name="instagram:image" content="https://razanius12.github.io/InfinityWorks/images/3carsInfinityLogo.jpg" />
+    <meta name="instagram:site" content="@InfinityWorks" />
+
+    <meta name="discord:card" content="summary_large_image" />
+    <meta name="discord:title" content="Infinity Works - Born From The Ashes" />
+    <meta
+      name="discord:description"
+      content="Where the love of drifting meets the thrill of the ride. Join our community and experience the rush."
+    />
+    <meta name="discord:image" content="https://razanius12.github.io/InfinityWorks/images/3carsInfinityLogo.jpg" />
+    <meta name="discord:site" content="@InfinityWorks" />
+
+    <meta name="theme-color" content="#273987" data-react-helmet="true" />
+
+    <title>{title} | Infinity Works</title>
+
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+
+    <!-- Bootstrap Icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    />
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Outfit:wght@100;200;400;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+
+  <body>
+    <main>
+      <slot />
+    </main>
+
+    <!-- Image Viewer Modal -->
+    <div class="image-viewer" id="imageViewer">
+      <span class="close-btn">&times;</span>
+      <div class="zoom-controls">
+        <button class="zoom-btn zoom-in" aria-label="Zoom in" title="Zoom in">+</button>
+        <button class="zoom-btn zoom-out" aria-label="Zoom out" title="Zoom out">−</button>
+      </div>
+      <img loading="lazy" class="viewer-content" id="expandedImg" />
+      <div class="viewer-controls">
+        <button class="nav-btn prev" aria-label="Previous image">&lt;</button>
+        <button class="nav-btn next" aria-label="Next image">&gt;</button>
+      </div>
+    </div>
+
+    <!-- Bootstrap Bundle JS (includes Popper.js) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
+
+
+    <!-- App Initialization Script -->
+    <script is:inline>
+      // ===== NAVBAR SCROLL DETECTION =====
+      function setupScrollNavbar() {
+        const navbar = document.querySelector('.navbar');
+        const aboutSection = document.querySelector('#section_2');
+        
+        if (!navbar || !aboutSection) return;
+
+        // Use Intersection Observer to detect when about section comes into view
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            if (!entry.isIntersecting) {
+              // About section is out of view (scrolled past), make navbar solid
+              navbar.classList.add('scrolled');
+            } else {
+              // About section is visible, keep navbar transparent
+              navbar.classList.remove('scrolled');
+            }
+          });
+        }, { threshold: 0 });
+
+        observer.observe(aboutSection);
+      }
+
+      // ===== VIDEO CONTROLS =====
+      function initializeVideoControls() {
+        const video = document.querySelector('.custom-video');
+        if (!video) return;
+
+        // Create mute button
+        const muteBtn = document.createElement('button');
+        muteBtn.className = 'video-mute-btn';
+        muteBtn.setAttribute('aria-label', 'Mute/Unmute video');
+        muteBtn.innerHTML = '<span class="bi bi-volume-mute"></span>';
+
+        const videoWrap = video.closest('.video-wrap');
+        if (videoWrap) {
+          videoWrap.appendChild(muteBtn);
+        }
+
+        // Ensure video is muted initially and keep it muted
+        video.muted = true;
+        
+        // Force autoplay with proper flags
+        video.autoplay = true;
+        video.loop = true;
+        
+        // Add play() call to ensure it starts
+        const playPromise = video.play();
+        if (playPromise !== undefined) {
+          playPromise.catch(error => {
+            console.log('Video autoplay failed:', error);
+            // Fallback: user interaction needed
+          });
+        }
+
+        function updateMuteIcon() {
+          muteBtn.innerHTML = video.muted ? 
+            '<span class="bi bi-volume-mute"></span>' : 
+            '<span class="bi bi-volume-up"></span>';
+        }
+
+        muteBtn.addEventListener('click', () => {
+          video.muted = !video.muted;
+          updateMuteIcon();
+        });
+
+        console.log('Video controls initialized');
+      }
+
+      // ===== GALLERY INITIALIZATION =====
+      function initializeGallery() {
+        const gallery = document.getElementById('image-gallery');
+        if (!gallery || gallery.children.length > 0) return;
+
+        // Create gallery items for images 1-23
+        for (let i = 1; i <= 23; i++) {
+          const item = document.createElement('div');
+          item.className = 'gallery-item';
+          
+          const img = document.createElement('img');
+          img.src = `/images/gallery/${i}.jpg`;
+          img.alt = `Gallery image ${i}`;
+          img.loading = 'lazy';
+          img.decoding = 'async';
+          
+          item.appendChild(img);
+          gallery.appendChild(item);
+        }
+        
+        console.log('✓ Gallery images created (23 items)');
+      }
+
+      // ===== LAZY LOADING FOR GALLERY IMAGES =====
+      function initializeLazyLoading() {
+        // Use Intersection Observer for lazy loading
+        const imageObserver = new IntersectionObserver((entries, observer) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              const img = entry.target;
+              
+              // Check if image is already loaded
+              if (img.complete) {
+                // Image is already loaded, set opacity immediately
+                img.style.opacity = '1';
+              } else {
+                // Image is still loading, wait for load event
+                const handleLoad = () => {
+                  img.style.opacity = '1';
+                  img.removeEventListener('load', handleLoad);
+                };
+                img.addEventListener('load', handleLoad);
+              }
+              
+              observer.unobserve(img);
+            }
+          });
+        }, {
+          rootMargin: '50px' // Start loading 50px before image enters viewport
+        });
+
+        // Observe all gallery images
+        document.querySelectorAll('.gallery-item img').forEach(img => {
+          img.style.opacity = '0.5'; // Make unloaded images appear faded
+          imageObserver.observe(img);
+        });
+      }
+
+      // ===== IMAGE VIEWER =====
+      function initializeImageViewer() {
+        const viewer = document.getElementById('imageViewer');
+        const closeBtn = document.querySelector('.close-btn');
+        const expandedImg = document.getElementById('expandedImg');
+        const prevBtn = document.querySelector('.nav-btn.prev');
+        const nextBtn = document.querySelector('.nav-btn.next');
+        const zoomInBtn = document.querySelector('.zoom-in');
+        const zoomOutBtn = document.querySelector('.zoom-out');
+
+        if (!viewer || !expandedImg) return;
+
+        let images = [];
+        let currentIndex = 0;
+        let currentZoom = 1;
+
+        // Collect all gallery images
+        function collectImages() {
+          images = [];
+          // Collect regular gallery images
+          document.querySelectorAll('.gallery-item img').forEach((img) => {
+            images.push(img.src);
+          });
+          // Collect game appearance images
+          document.querySelectorAll('.game-appearance-img').forEach((img) => {
+            images.push(img.src);
+          });
+          console.log('Collected', images.length, 'images for viewer');
+        }
+
+        // Initialize images on first open
+        collectImages();
+
+        // Zoom functions
+        const updateZoom = () => {
+          expandedImg.style.transform = `scale(${currentZoom})`;
+        };
+
+        const zoomIn = () => {
+          if (currentZoom < 3) {
+            currentZoom += 0.2;
+            updateZoom();
+          }
+        };
+
+        const zoomOut = () => {
+          if (currentZoom > 1) {
+            currentZoom -= 0.2;
+            updateZoom();
+          }
+        };
+
+        const resetZoom = () => {
+          currentZoom = 1;
+          updateZoom();
+        };
+
+        // Function to open viewer
+        window.openImageViewer = (index) => {
+          if (images.length === 0) {
+            collectImages();
+          }
+          currentIndex = Math.max(0, Math.min(index, images.length - 1));
+          expandedImg.src = images[currentIndex];
+          resetZoom();
+          viewer.classList.add('active');
+          document.body.style.overflow = 'hidden';
+        };
+
+        // Show next image
+        const showNext = () => {
+          currentIndex = (currentIndex + 1) % images.length;
+          expandedImg.src = images[currentIndex];
+          resetZoom();
+        };
+
+        // Show previous image
+        const showPrev = () => {
+          currentIndex = (currentIndex - 1 + images.length) % images.length;
+          expandedImg.src = images[currentIndex];
+          resetZoom();
+        };
+
+        // Close viewer
+        const closeViewer = () => {
+          viewer.classList.remove('active');
+          document.body.style.overflow = 'auto';
+          resetZoom();
+        };
+
+        // Event listeners
+        closeBtn.addEventListener('click', closeViewer);
+        prevBtn.addEventListener('click', showPrev);
+        nextBtn.addEventListener('click', showNext);
+        zoomInBtn.addEventListener('click', zoomIn);
+        zoomOutBtn.addEventListener('click', zoomOut);
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+          if (!viewer.classList.contains('active')) return;
+          
+          switch(e.key) {
+            case 'ArrowRight':
+            case ' ':
+              showNext();
+              break;
+            case 'ArrowLeft':
+              showPrev();
+              break;
+            case 'Escape':
+              closeViewer();
+              break;
+            case '+':
+            case '=':
+              zoomIn();
+              break;
+            case '-':
+              zoomOut();
+              break;
+          }
+        });
+
+        // Scroll wheel zoom
+        viewer.addEventListener('wheel', (e) => {
+          if (!viewer.classList.contains('active')) return;
+          e.preventDefault();
+          if (e.deltaY < 0) {
+            zoomIn();
+          } else {
+            zoomOut();
+          }
+        }, { passive: false });
+
+        // Click outside to close
+        viewer.addEventListener('click', (e) => {
+          if (e.target === viewer) {
+            closeViewer();
+          }
+        });
+
+        // Setup click handlers on all gallery images
+        document.querySelectorAll('.gallery-item img').forEach((img, idx) => {
+          img.addEventListener('click', () => {
+            window.openImageViewer(idx);
+          });
+        });
+
+        // Setup click handlers on game appearance images
+        document.querySelectorAll('.game-appearance-img').forEach((img) => {
+          img.addEventListener('click', () => {
+            // Find the index of this image in the full images array
+            const idx = Array.from(document.querySelectorAll('.gallery-item img, .game-appearance-img')).indexOf(img);
+            window.openImageViewer(idx);
+          });
+        });
+
+        console.log('Image viewer initialized with zoom controls');
+      }
+
+      // ===== MAIN INITIALIZATION =====
+      function initializeApp() {
+        try {
+          initializeGallery();
+          setupScrollNavbar();
+          initializeVideoControls();
+          initializeLazyLoading();
+          initializeImageViewer();
+          console.log('✓ All app features initialized successfully');
+        } catch (error) {
+          console.error('✗ Error initializing app:', error);
+        }
+      }
+
+      // Run on DOM ready
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initializeApp);
+      } else {
+        initializeApp();
+      }
+
+      // Re-initialize image viewer data if gallery updates
+      const galleryObserver = new MutationObserver(() => {
+        console.log('Gallery updated, reinitializing image viewer');
+        // Images may have changed
+      });
+
+      const gallery = document.getElementById('image-gallery');
+      if (gallery) {
+        galleryObserver.observe(gallery, { childList: true });
+      }
+    </script>
+  </body>
+</html>

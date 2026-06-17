@@ -1,0 +1,143 @@
+---
+interface GameAppearance {
+  name: string;
+  url: string;
+  gallery: Array<{
+    image: string;
+    links?: Array<{
+      platform: string;
+      icon: string;
+      url: string;
+    }>;
+  }>;
+}
+
+const appearances: GameAppearance[] = [
+  {
+    name: 'Highway Warriors 2',
+    url: 'https://jreo.itch.io/hw2',
+    gallery: [
+      {
+        image: '/images/gallery/other/HighwayWarriors2_jreo-1.png',
+        links: [
+          {
+            platform: 'youtube',
+            icon: 'bi-youtube',
+            url: 'https://youtu.be/zR7HBrJ6XkU'
+          }
+        ]
+      },
+      {
+        image: '/images/gallery/other/HighwayWarriors2_jreo-2.png',
+        links: [
+          {
+            platform: 'youtube',
+            icon: 'bi-youtube',
+            url: 'https://youtu.be/P0mC8fgt01I'
+          }
+        ]
+      },
+      {
+        image: '/images/gallery/other/HighwayWarriors2_jreo-3.png',
+        links: [
+          {
+            platform: 'twitter',
+            icon: 'bi-twitter',
+            url: 'https://x.com/jreo03_tscn/status/1821198386592412131'
+          },
+          {
+            platform: 'youtube',
+            icon: 'bi-youtube',
+            url: 'https://youtu.be/pRJkTEnIgao'
+          }
+        ]
+      }
+    ]
+  },
+  {
+    name: 'Street Racing (The Rise)',
+    url: 'https://play.google.com/store/apps/details?id=com.therise.streetracing&pcampaignid=web_share',
+    gallery: [
+      {
+        image: '/images/gallery/other/StreetRacing_TheRise-1.jpg'
+      }
+    ]
+  },
+  {
+    name: 'Night-Runners Prologue',
+    url: 'https://store.steampowered.com/app/2707900/NIGHTRUNNERS_PROLOGUE/',
+    gallery: [
+      {
+        image: '/images/gallery/other/NightRunners_PLANETJEM-1.png'
+      },
+      {
+        image: '/images/gallery/other/NightRunners_PLANETJEM-2.png'
+      }
+    ]
+  },
+  {
+    name: 'Static Shift Racing',
+    url: 'https://play.google.com/store/apps/details?id=com.timbojimbo.ssr&pcampaignid=web_share',
+    gallery: [
+      {
+        image: '/images/gallery/other/SSR_TimboJimbo-1.png'
+      },
+      {
+        image: '/images/gallery/other/SSR_TimboJimbo-2.png'
+      },
+      {
+        image: '/images/gallery/other/SSR_TimboJimbo-3.png'
+      },
+      {
+        image: '/images/gallery/other/SSR_TimboJimbo-4.png'
+      },
+      {
+        image: '/images/gallery/other/SSR_TimboJimbo-5.png'
+      }
+    ]
+  }
+];
+---
+
+<section class="section-padding">
+  <div class="container">
+    <div class="row justify-content-center align-items-start">
+
+      <div class="col-12 text-center">
+        <h2 class="mb-5">Appearances in other games</h2>
+      </div>
+
+      <div class="row mt-5 justify-content-center align-items-start">
+
+        {appearances.map((appearance) => (
+          <div class="col-md-6 text-center mb-5">
+            <a href={appearance.url} target="_blank">
+              <h4 class="mb-5">{appearance.name}</h4>
+            </a>
+            <div id="other-gallery">
+              {appearance.gallery.map((item, idx) => (
+                <div class="col-lg-5 other-gallery-item m-2">
+                  <img loading="lazy" src={item.image} class="artists-image img-fluid game-appearance-img" style="cursor: pointer;" />
+                  {item.links && item.links.length > 0 && (
+                    <div class="social-icon-container">
+                      <ul class="social-icon">
+                        {item.links.map((link) => (
+                          <li class="social-icon-item">
+                            <a href={link.url} class="social-icon-link" target="_blank">
+                              <span class={link.icon}></span>
+                            </a>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
+          </div>
+        ))}
+
+      </div>
+    </div>
+  </div>
+</section>

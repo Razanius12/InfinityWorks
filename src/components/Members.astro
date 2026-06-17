@@ -1,0 +1,304 @@
+---
+interface Member {
+  id: string;
+  name: string;
+  title: string;
+  quote: string;
+  image: string;
+  social: Array<{
+    platform: string;
+    icon: string;
+    url: string;
+  }>;
+}
+
+const members: Member[] = [
+  {
+    id: 'kady',
+    name: '.kxdy_',
+    title: 'Leader',
+    quote: "You're not driving fast enough if something doesn't break",
+    image: '/images/members/1kadyCropped.jpg',
+    social: [
+      {
+        platform: 'instagram',
+        icon: 'bi-instagram',
+        url: 'https://www.instagram.com/taggedbykxdy'
+      }
+    ]
+  },
+  {
+    id: 'razanius',
+    name: 'Razanius12',
+    title: 'Co-Leader',
+    quote: 'Escape the finite, become INFINITY',
+    image: '/images/members/2razCropped.jpg',
+    social: [
+      {
+        platform: 'github',
+        icon: 'bi-github',
+        url: 'https://github.com/Razanius12'
+      },
+      {
+        platform: 'youtube',
+        icon: 'bi-youtube',
+        url: 'https://www.youtube.com/@razanius12'
+      },
+      {
+        platform: 'instagram',
+        icon: 'bi-instagram',
+        url: 'https://www.instagram.com/razanius12'
+      }
+    ]
+  },
+  {
+    id: 'rafa',
+    name: 'sobremisasa',
+    title: 'Co-Leader',
+    quote: 'Seek ye first the kingdom of God',
+    image: '/images/members/3rafaCropped.jpg',
+    social: [
+      {
+        platform: 'youtube',
+        icon: 'bi-youtube',
+        url: 'https://www.youtube.com/@sobremisasa'
+      },
+      {
+        platform: 'instagram',
+        icon: 'bi-instagram',
+        url: 'https://www.instagram.com/sobremisasa'
+      }
+    ]
+  },
+  {
+    id: 'aceroze',
+    name: 'aceroze1',
+    title: 'Co-Leader',
+    quote: 'Together Infinity',
+    image: '/images/members/4acerozeCropped.jpg',
+    social: [
+      {
+        platform: 'github',
+        icon: 'bi-github',
+        url: 'https://github.com/AceRoze1'
+      },
+      {
+        platform: 'youtube',
+        icon: 'bi-youtube',
+        url: 'https://www.youtube.com/@AceRoze1'
+      },
+      {
+        platform: 'instagram',
+        icon: 'bi-instagram',
+        url: 'https://www.instagram.com/aceroze1'
+      }
+    ]
+  },
+  {
+    id: 'flyday',
+    name: 'flyday.',
+    title: 'Member',
+    quote: 'When in doubt, drop a gear',
+    image: '/images/members/5flydayCropped.jpg',
+    social: [
+      {
+        platform: 'instagram',
+        icon: 'bi-instagram',
+        url: 'https://www.instagram.com/p/C1BRuFrx-g0'
+      }
+    ]
+  },
+  {
+    id: 'carbon',
+    name: 'carbonmetallic',
+    title: 'Member',
+    quote: 'Brat brata w dupe charata',
+    image: '/images/members/6abbasCropped.jpg',
+    social: [
+      {
+        platform: 'instagram',
+        icon: 'bi-instagram',
+        url: 'https://www.instagram.com/314pwr'
+      }
+    ]
+  },
+  {
+    id: 'masaki',
+    name: 'Masaki',
+    title: 'Member',
+    quote: 'Time is a valuable thing',
+    image: '/images/members/7masakiCropped.jpg',
+    social: [
+      {
+        platform: 'instagram',
+        icon: 'bi-instagram',
+        url: 'https://www.instagram.com/p/C1BR2MexLDo'
+      }
+    ]
+  },
+  {
+    id: 'mangosteezy',
+    name: 'mangosteezy',
+    title: 'Member',
+    quote: '297 til heaven',
+    image: '/images/members/8mangosteezyCropped.jpg',
+    social: [
+      {
+        platform: 'instagram',
+        icon: 'bi-instagram',
+        url: 'https://www.instagram.com/mngostzy297'
+      }
+    ]
+  },
+  {
+    id: 'minion',
+    name: 'minion69',
+    title: 'Member',
+    quote: 'Does it all even matter',
+    image: '/images/members/9minion69Cropped.jpg',
+    social: [
+      {
+        platform: 'instagram',
+        icon: 'bi-instagram',
+        url: 'https://www.instagram.com/minion69_frl'
+      }
+    ]
+  }
+];
+---
+
+<section class="artists section-padding" id="section_3">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-12 text-center">
+        <h2 class="mb-5">Members</h2>
+      </div>
+    </div>
+
+    <!-- Desktop Grid -->
+    <div id="membersGrid" class="row row-cols-1 row-cols-md-3 g-4 justify-content-center d-none d-md-flex">
+      {members.map((member) => (
+        <div class="col">
+          <div class="card h-100 artists-image">
+            <img loading="lazy" src={member.image} class="card-img-top artists-card-image" />
+            <div class="card-body">
+              <h4 class="card-title">{member.name}</h4>
+              <p class="card-text"><i>{member.title}</i></p>
+              <p class="card-text">
+                "{member.quote}"
+              </p>
+            </div>
+
+            <div class="card-footer">
+              <div class="col mt-auto d-flex flex-row-reverse">
+                <ul class="social-icon">
+                  {member.social.map((link) => (
+                    <li class="social-icon-item">
+                      <a href={link.url} class="social-icon-link mt-2 mb-2" target="_blank">
+                        <span class={link.icon}></span>
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <!-- Mobile Carousel -->
+    <div id="membersCarousel" class="carousel slide d-md-none" data-bs-ride="carousel">
+      <div class="carousel-inner">
+        {members.map((member, index) => (
+          <div class={`carousel-item ${index === 0 ? 'active' : ''}`}>
+            <div class="card h-100 artists-image">
+              <img loading="lazy" src={member.image} class="card-img-top artists-card-image" />
+              <div class="card-body">
+                <h4 class="card-title">{member.name}</h4>
+                <p class="card-text"><i>{member.title}</i></p>
+                <p class="card-text">
+                  "{member.quote}"
+                </p>
+              </div>
+
+              <div class="card-footer">
+                <div class="col mt-auto d-flex flex-row-reverse">
+                  <ul class="social-icon">
+                    {member.social.map((link) => (
+                      <li class="social-icon-item">
+                        <a href={link.url} class="social-icon-link mt-2 mb-2" target="_blank">
+                          <span class={link.icon}></span>
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+      <button class="carousel-control-prev" type="button" data-bs-target="#membersCarousel" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#membersCarousel" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+      </button>
+    </div>
+
+  </div>
+</section>
+
+<script is:inline>
+  // Carousel controls positioning
+  function adjustCarouselControls() {
+    const activeItem = document.querySelector('.carousel-item.active');
+    if (activeItem) {
+      const cardImage = activeItem.querySelector('.card-img-top.artists-card-image');
+      const prevControl = document.querySelector('.carousel-control-prev');
+      const nextControl = document.querySelector('.carousel-control-next');
+
+      if (window.matchMedia('(max-width: 576px)').matches) {
+        if (cardImage) {
+          const imageHeight = cardImage.offsetHeight;
+          const topPosition = imageHeight - 24;
+          if (prevControl) prevControl.style.top = `${topPosition}px`;
+          if (nextControl) nextControl.style.top = `${topPosition}px`;
+        }
+      } else if (window.matchMedia('(max-width: 620px)').matches) {
+        const baseTop = 265;
+        const topPosition = baseTop - 24;
+        const finalPosition = Math.max(topPosition, 24);
+
+        if (prevControl) prevControl.style.top = `${finalPosition}px`;
+        if (nextControl) nextControl.style.top = `${finalPosition}px`;
+      } else {
+        if (prevControl) prevControl.style.top = '';
+        if (nextControl) nextControl.style.top = '';
+      }
+    }
+  }
+
+  if (typeof bootstrap !== 'undefined') {
+    const carouselElement = document.getElementById('membersCarousel');
+    if (carouselElement) {
+      const myCarousel = new bootstrap.Carousel(carouselElement, {
+        interval: 5000,
+        wrap: true,
+        touch: true
+      });
+
+      adjustCarouselControls();
+      carouselElement.addEventListener('slid.bs.carousel', adjustCarouselControls);
+
+      let resizeTimeout;
+      window.addEventListener('resize', function () {
+        clearTimeout(resizeTimeout);
+        resizeTimeout = setTimeout(adjustCarouselControls, 250);
+      });
+    }
+  }
+</script>
