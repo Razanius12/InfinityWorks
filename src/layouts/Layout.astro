@@ -126,7 +126,7 @@ const { title } = Astro.props;
 
     <!-- App Initialization Script -->
     <script is:inline>
-      // ===== NAVBAR SCROLL DETECTION =====
+      // ===== NAVBAR & MUTE BUTTON SCROLL DETECTION =====
       function setupScrollNavbar() {
         const navbar = document.querySelector('.navbar');
         const aboutSection = document.querySelector('#section_2');
@@ -136,12 +136,22 @@ const { title } = Astro.props;
         // Use Intersection Observer to detect when about section comes into view
         const observer = new IntersectionObserver((entries) => {
           entries.forEach((entry) => {
+            // Query for mute button here (after it's been created)
+            const muteBtn = document.querySelector('.video-mute-btn');
+            
             if (!entry.isIntersecting) {
-              // About section is out of view (scrolled past), make navbar solid
+              // About section is out of view (scrolled past)
               navbar.classList.add('scrolled');
+              // Hide mute button when scrolled away from hero
+              if (muteBtn) {
+                muteBtn.classList.add('hidden');
+              }
             } else {
-              // About section is visible, keep navbar transparent
+              // About section is visible, keep navbar transparent and show mute button
               navbar.classList.remove('scrolled');
+              if (muteBtn) {
+                muteBtn.classList.remove('hidden');
+              }
             }
           });
         }, { threshold: 0 });
@@ -158,14 +168,13 @@ const { title } = Astro.props;
         const muteBtn = document.createElement('button');
         muteBtn.className = 'video-mute-btn';
         muteBtn.setAttribute('aria-label', 'Mute/Unmute video');
+        muteBtn.setAttribute('title', 'Toggle video mute');
         muteBtn.innerHTML = '<span class="bi bi-volume-mute"></span>';
 
-        const videoWrap = video.closest('.video-wrap');
-        if (videoWrap) {
-          videoWrap.appendChild(muteBtn);
-        }
+        // Append to body for proper z-index and pointer-events handling
+        document.body.appendChild(muteBtn);
 
-        // Ensure video is muted initially and keep it muted
+        // Ensure video is muted initially
         video.muted = true;
         
         // Force autoplay with proper flags
@@ -177,7 +186,6 @@ const { title } = Astro.props;
         if (playPromise !== undefined) {
           playPromise.catch(error => {
             console.log('Video autoplay failed:', error);
-            // Fallback: user interaction needed
           });
         }
 
@@ -187,10 +195,11 @@ const { title } = Astro.props;
             '<span class="bi bi-volume-up"></span>';
         }
 
+        // Handle mute click
         muteBtn.addEventListener('click', () => {
           video.muted = !video.muted;
           updateMuteIcon();
-        });
+        }, { passive: false });
 
         console.log('Video controls initialized');
       }

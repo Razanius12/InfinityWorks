@@ -238,7 +238,7 @@ iframe {
   position: fixed;
   bottom: 20px;
   right: 20px;
-  z-index: 50;
+  z-index: 1001;
   background: rgba(39, 57, 135, 0.7);
   border: none;
   color: white;
@@ -252,13 +252,20 @@ iframe {
   opacity: 0.5;
   transition: all 0.3s ease;
   font-size: 1.2rem;
-  pointer-events: auto !important;
+  pointer-events: auto;
 }
 
 .video-mute-btn:hover {
   opacity: 1;
   background: var(--custom-btn-bg-color);
   transform: scale(1.1);
+}
+
+/* Hide mute button when scrolled away from hero */
+.video-mute-btn.hidden {
+  opacity: 0;
+  pointer-events: none;
+  visibility: hidden;
 }
 
 /* ====== ABOUT SECTION ====== */
@@ -348,7 +355,7 @@ iframe {
 .card:hover {
   transform: translateY(-5px);
   border-color: var(--secondary-color);
-  background-color: var(--white);
+  background-color: var(--white-color);
   box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
   opacity: 1 !important;
 }

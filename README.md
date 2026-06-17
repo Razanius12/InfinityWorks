@@ -1,85 +1,91 @@
 # Infinity Works Website
 
-[![Website Preview](images/3carsInfinityLogo.jpg)](https://razanius12.github.io/InfinityWorks/)
+[![Website Preview](public/images/3carsInfinityLogo.jpg)](https://razanius12.github.io/InfinityWorks/)
 
-A modern, responsive website for the Infinity, one of the [FR Legends](https://play.google.com/store/apps/details?id=com.fengiiley.frlegends) community.
+A modern, responsive landing page for the Infinity drift racing team, built with **Astro**.
 
-## Live Preview
+## 🚀 Live Preview
 
-The website is available at:
+- GitHub Pages: https://razanius12.github.io/InfinityWorks/
+- Main URL: https://infinityworks.rf.gd/
 
-- GitHub Pages: [https://razanius12.github.io/InfinityWorks/](https://razanius12.github.io/InfinityWorks/)
-- Main URL: [https://infinityworks.rf.gd/](https://infinityworks.rf.gd/)
-- Alternate URL: [https://infinityworks.vercel.app/](https://infinityworks.vercel.app/)
+## ✨ Features
 
-## Features
-
-- Responsive design that works across all devices
-- Modern UI with smooth animations and transitions
+- Full-screen hero with floating navbar
+- Responsive design (desktop, tablet, mobile)
 - Team member profiles with social links
-- Embedded YouTube Video gallery showcasing drift content
-- Dynamic photo gallery of team activities
-- Bootstrap 5 framework integration
-- Custom CSS styling
+- YouTube video gallery
+- Dynamic image gallery with viewer
+- Image zoom controls (+ / − buttons, keyboard, scroll wheel)
+- Bootstrap 5 + custom CSS
+- Google Fonts (Outfit)
+- Smooth animations and transitions
 
-## Technologies Used
+## 🛠️ Tech Stack
 
-- HTML5
-- CSS3
-- JavaScript
-- jQuery
-- Bootstrap 5
-- Bootstrap Icons
-- Google Fonts
+- **Framework**: Astro 4.16.19
+- **Styling**: Bootstrap 5.3.0 + Custom CSS
+- **Icons**: Bootstrap Icons 1.11.3
+- **Fonts**: Google Fonts (Outfit)
+- **API**: Intersection Observer (navbar, lazy loading, viewer)
 
-## Sections
+## 📁 Project Structure
 
-1. **Home** - Welcome section with team introduction
-2. **About** - Team history and mission statement
-3. **Members** - Team member profiles with social links
-4. **Videos** - YouTube video gallery
-5. **Gallery** - Dynamic photo gallery
-6. **Discord** - Community invitation section
+```
+/src
+  /components       # Reusable UI components
+  /layouts         # Page layouts
+  /pages           # Route pages
+  /styles          # Global CSS
+/public            # Static assets
+  /images          # Gallery, members, logos
+  /video           # Hero background video
+  /fonts           # Custom fonts (if any)
+```
 
-## How to Modify the Page
+## 🚀 Quick Start
 
-### Changing Text Content
+```bash
+npm install        # Install dependencies
+npm install -g astro  # Optional: install Astro CLI globally
+npm run dev        # Start dev server (localhost:4322)
+npm run build      # Build for production (/dist)
+npm run preview    # Preview production build
+```
 
-1. Open the `index.html` file.
-2. Locate the section you want to modify by searching for the relevant text.
-3. Edit the text within the HTML tags.
+## 📝 Pages
 
-### Modifying Custom Styles
+- **Home** - Full-screen hero with floating navbar & video
+- **About** - Team mission
+- **Members** - Team profiles with socials
+- **Videos** - YouTube gallery
+- **Gallery** - Image gallery with zoom viewer
+- **Game Appearances** - In-game showcase
 
-1. Open the `css/templatemo-festava-live.css` file.
-2. Locate the CSS rules you want to modify.
-3. Edit the CSS properties as needed.
+## 🎨 Customization
 
-### Updating Images
+### Styling
+- Global styles: `/src/styles/globals.css` (single, clean file)
+- Components use Bootstrap 5 + custom CSS
 
-1. Replace the image files in the `images` directory with your new images.
-2. Ensure the new images have the same file names as the old ones, or update the `src` attributes in the `index.html` file to match the new file names.
+### Images & Video
+- Replace files in `/public/images/` and `/public/video/`
+- Update component data arrays in `/src/components/*.astro`
 
-### Updating Video/Image on Hero Section
+### Team Members
+- Edit members array in `/src/components/Members.astro`
+- Add photos to `/public/images/members/`
 
-1. Open the `index.html` file.
-2. Locate the `<section class="hero-section" id="section_1">` block.
-3. To update the video, replace the `<source>` tags within the `<video>` tag with new video sources.
-4. To update the image, replace the `poster` attribute of the `<video>` tag with the new image path.
-5. The `retryLoadVideo(video, attempt)` function in the `js/custom.js` ensures that the video loads correctly by retrying the load operation with exponential backoff if the video is not near the viewport or fails to load initially. It uses an intersection observer to load the video when it comes into view and retries loading up to a maximum number of attempts with increasing intervals. You can modify the `maxAttempts` and `backoffInterval` variables to adjust the retry behavior.
-6. The video is split into four sources to ensure compatibility and fallback options for different browsers.
+### Gallery Images
+- Add 23 gallery images to `/public/images/gallery/1.jpg` through `23.jpg`
+- Images load dynamically from JavaScript in `/src/layouts/Layout.astro`
 
-### Adding New Team Members
+## 🚢 Deployment
 
-1. Open the `index.html` file.
-2. Locate the `Members` section.
-3. Copy an existing member's `<div class="col">` block and paste it where you want the new member to appear.
-4. Update the image `src`, member name, role, and quote.
-5. If using the carousel, also add the new member's `<div class="carousel-item">` block within the carousel structure.
-
-### Adjusting Carousel Controls
-
-The `adjustCarouselControls()` function in the `js/custom.js` file adjusts the visibility and positioning of the carousel controls based on the number of items and the current state of the carousel. This function ensures that the controls are correctly positioned and visible on different screen sizes.
+```bash
+npm run build      # Creates /dist folder
+# Deploy the /dist folder to your hosting service
+```
 
 #### How It Works
 
