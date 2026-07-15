@@ -1,7 +1,7 @@
 ---
 /**
  * Reusable Social Links Component
- * 
+ *
  * Usage:
  * <SocialLinks links={socialArray} />
  */
@@ -22,13 +22,22 @@ const { links, className = 'social-icon' } = Astro.props;
 ---
 
 <ul class={className}>
-  {links.map((link) => (
-    <li class="social-icon-item">
-      <a href={link.url} class="social-icon-link" target="_blank" rel="noopener noreferrer" title={link.label || link.platform}>
-        <span class={link.icon}></span>
-      </a>
-    </li>
-  ))}
+  {
+    links.map((link) => (
+      <li class="social-icon-item">
+        <a
+          href={link.url}
+          class="social-icon-link"
+          target="_blank"
+          rel="noopener noreferrer"
+          title={link.label || link.platform}
+          aria-label={link.label || link.platform}
+        >
+          <span class={link.icon} />
+        </a>
+      </li>
+    ))
+  }
 </ul>
 
 <style>

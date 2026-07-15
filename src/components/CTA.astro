@@ -17,7 +17,7 @@ const {
   subtitle = undefined,
   buttonText = 'Join Our Discord',
   buttonHref = 'https://discord.com/invite/93xgQjW',
-  backgroundImage = '/images/infinityCarsBlur38kb.jpg'
+  backgroundImage = '/images/infinityCarsBlur38kb.jpg',
 } = Astro.props;
 ---
 
@@ -28,12 +28,20 @@ const {
       <div class="col-12 text-center">
         {title && <h3 class="cta-title">{title}</h3>}
         {subtitle && <p class="cta-subtitle">{subtitle}</p>}
-        
-        {buttonHref && (
-          <a href={buttonHref} class="btn custom-btn" target="_blank" rel="noopener noreferrer">
-            {buttonText}
-          </a>
-        )}
+
+        {
+          buttonHref && (
+            <a
+              href={buttonHref}
+              class="btn custom-btn"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={buttonText || 'Call to action button'}
+            >
+              {buttonText}
+            </a>
+          )
+        }
       </div>
     </div>
   </div>

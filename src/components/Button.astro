@@ -1,7 +1,7 @@
 ---
 /**
  * Responsive Button Component
- * 
+ *
  * Usage:
  * <Button href="#section" label="Click me" variant="primary" />
  */
@@ -23,15 +23,10 @@ const {
   size = 'md',
   external = false,
   onclick,
-  class: className
+  class: className,
 } = Astro.props;
 
-const buttonClass = [
-  'btn',
-  `btn-${variant}`,
-  `btn-${size}`,
-  className
-].filter(Boolean).join(' ');
+const buttonClass = ['btn', `btn-${variant}`, `btn-${size}`, className].filter(Boolean).join(' ');
 ---
 
 <a

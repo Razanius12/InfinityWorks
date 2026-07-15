@@ -23,9 +23,9 @@ const members: Member[] = [
       {
         platform: 'instagram',
         icon: 'bi-instagram',
-        url: 'https://www.instagram.com/taggedbykxdy'
-      }
-    ]
+        url: 'https://www.instagram.com/taggedbykxdy',
+      },
+    ],
   },
   {
     id: 'razanius',
@@ -37,19 +37,19 @@ const members: Member[] = [
       {
         platform: 'github',
         icon: 'bi-github',
-        url: 'https://github.com/Razanius12'
+        url: 'https://github.com/Razanius12',
       },
       {
         platform: 'youtube',
         icon: 'bi-youtube',
-        url: 'https://www.youtube.com/@razanius12'
+        url: 'https://www.youtube.com/@razanius12',
       },
       {
         platform: 'instagram',
         icon: 'bi-instagram',
-        url: 'https://www.instagram.com/razanius12'
-      }
-    ]
+        url: 'https://www.instagram.com/razanius12',
+      },
+    ],
   },
   {
     id: 'rafa',
@@ -61,14 +61,14 @@ const members: Member[] = [
       {
         platform: 'youtube',
         icon: 'bi-youtube',
-        url: 'https://www.youtube.com/@sobremisasa'
+        url: 'https://www.youtube.com/@sobremisasa',
       },
       {
         platform: 'instagram',
         icon: 'bi-instagram',
-        url: 'https://www.instagram.com/sobremisasa'
-      }
-    ]
+        url: 'https://www.instagram.com/sobremisasa',
+      },
+    ],
   },
   {
     id: 'aceroze',
@@ -80,19 +80,19 @@ const members: Member[] = [
       {
         platform: 'github',
         icon: 'bi-github',
-        url: 'https://github.com/AceRoze1'
+        url: 'https://github.com/AceRoze1',
       },
       {
         platform: 'youtube',
         icon: 'bi-youtube',
-        url: 'https://www.youtube.com/@AceRoze1'
+        url: 'https://www.youtube.com/@AceRoze1',
       },
       {
         platform: 'instagram',
         icon: 'bi-instagram',
-        url: 'https://www.instagram.com/aceroze1'
-      }
-    ]
+        url: 'https://www.instagram.com/aceroze1',
+      },
+    ],
   },
   {
     id: 'flyday',
@@ -104,9 +104,9 @@ const members: Member[] = [
       {
         platform: 'instagram',
         icon: 'bi-instagram',
-        url: 'https://www.instagram.com/p/C1BRuFrx-g0'
-      }
-    ]
+        url: 'https://www.instagram.com/p/C1BRuFrx-g0',
+      },
+    ],
   },
   {
     id: 'carbon',
@@ -118,9 +118,9 @@ const members: Member[] = [
       {
         platform: 'instagram',
         icon: 'bi-instagram',
-        url: 'https://www.instagram.com/314pwr'
-      }
-    ]
+        url: 'https://www.instagram.com/314pwr',
+      },
+    ],
   },
   {
     id: 'masaki',
@@ -132,9 +132,9 @@ const members: Member[] = [
       {
         platform: 'instagram',
         icon: 'bi-instagram',
-        url: 'https://www.instagram.com/p/C1BR2MexLDo'
-      }
-    ]
+        url: 'https://www.instagram.com/p/C1BR2MexLDo',
+      },
+    ],
   },
   {
     id: 'mangosteezy',
@@ -146,9 +146,9 @@ const members: Member[] = [
       {
         platform: 'instagram',
         icon: 'bi-instagram',
-        url: 'https://www.instagram.com/mngostzy297'
-      }
-    ]
+        url: 'https://www.instagram.com/mngostzy297',
+      },
+    ],
   },
   {
     id: 'minion',
@@ -160,10 +160,10 @@ const members: Member[] = [
       {
         platform: 'instagram',
         icon: 'bi-instagram',
-        url: 'https://www.instagram.com/minion69_frl'
-      }
-    ]
-  }
+        url: 'https://www.instagram.com/minion69_frl',
+      },
+    ],
+  },
 ];
 ---
 
@@ -176,50 +176,26 @@ const members: Member[] = [
     </div>
 
     <!-- Desktop Grid -->
-    <div id="membersGrid" class="row row-cols-1 row-cols-md-3 g-4 justify-content-center d-none d-md-flex">
-      {members.map((member) => (
-        <div class="col">
-          <div class="card h-100 artists-image">
-            <img loading="lazy" src={member.image} class="card-img-top artists-card-image" />
-            <div class="card-body">
-              <h4 class="card-title">{member.name}</h4>
-              <p class="card-text"><i>{member.title}</i></p>
-              <p class="card-text">
-                "{member.quote}"
-              </p>
-            </div>
-
-            <div class="card-footer">
-              <div class="col mt-auto d-flex flex-row-reverse">
-                <ul class="social-icon">
-                  {member.social.map((link) => (
-                    <li class="social-icon-item">
-                      <a href={link.url} class="social-icon-link mt-2 mb-2" target="_blank">
-                        <span class={link.icon}></span>
-                      </a>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
-      ))}
-    </div>
-
-    <!-- Mobile Carousel -->
-    <div id="membersCarousel" class="carousel slide d-md-none" data-bs-ride="carousel">
-      <div class="carousel-inner">
-        {members.map((member, index) => (
-          <div class={`carousel-item ${index === 0 ? 'active' : ''}`}>
+    <div
+      id="membersGrid"
+      class="row row-cols-1 row-cols-md-3 g-4 justify-content-center d-none d-md-flex"
+    >
+      {
+        members.map((member) => (
+          <div class="col">
             <div class="card h-100 artists-image">
-              <img loading="lazy" src={member.image} class="card-img-top artists-card-image" />
+              <img
+                loading="lazy"
+                src={member.image}
+                alt={`${member.name} - ${member.title}`}
+                class="card-img-top artists-card-image"
+              />
               <div class="card-body">
                 <h4 class="card-title">{member.name}</h4>
-                <p class="card-text"><i>{member.title}</i></p>
                 <p class="card-text">
-                  "{member.quote}"
+                  <i>{member.title}</i>
                 </p>
+                <p class="card-text">"{member.quote}"</p>
               </div>
 
               <div class="card-footer">
@@ -227,8 +203,13 @@ const members: Member[] = [
                   <ul class="social-icon">
                     {member.social.map((link) => (
                       <li class="social-icon-item">
-                        <a href={link.url} class="social-icon-link mt-2 mb-2" target="_blank">
-                          <span class={link.icon}></span>
+                        <a
+                          href={link.url}
+                          class="social-icon-link mt-2 mb-2"
+                          target="_blank"
+                          aria-label={`${member.name}'s ${link.platform}`}
+                        >
+                          <span class={link.icon} />
                         </a>
                       </li>
                     ))}
@@ -237,18 +218,73 @@ const members: Member[] = [
               </div>
             </div>
           </div>
-        ))}
+        ))
+      }
+    </div>
+
+    <!-- Mobile Carousel -->
+    <div id="membersCarousel" class="carousel slide d-md-none" data-bs-ride="carousel">
+      <div class="carousel-inner">
+        {
+          members.map((member, index) => (
+            <div class={`carousel-item ${index === 0 ? 'active' : ''}`}>
+              <div class="card h-100 artists-image">
+                <img
+                  loading="lazy"
+                  src={member.image}
+                  alt={`${member.name} - ${member.title}`}
+                  class="card-img-top artists-card-image"
+                />
+                <div class="card-body">
+                  <h4 class="card-title">{member.name}</h4>
+                  <p class="card-text">
+                    <i>{member.title}</i>
+                  </p>
+                  <p class="card-text">"{member.quote}"</p>
+                </div>
+
+                <div class="card-footer">
+                  <div class="col mt-auto d-flex flex-row-reverse">
+                    <ul class="social-icon">
+                      {member.social.map((link) => (
+                        <li class="social-icon-item">
+                          <a
+                            href={link.url}
+                            class="social-icon-link mt-2 mb-2"
+                            target="_blank"
+                            aria-label={`${member.name}'s ${link.platform}`}
+                          >
+                            <span class={link.icon} />
+                          </a>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          ))
+        }
       </div>
-      <button class="carousel-control-prev" type="button" data-bs-target="#membersCarousel" data-bs-slide="prev">
+      <button
+        class="carousel-control-prev"
+        type="button"
+        data-bs-target="#membersCarousel"
+        data-bs-slide="prev"
+      >
         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
         <span class="visually-hidden">Previous</span>
       </button>
-      <button class="carousel-control-next" type="button" data-bs-target="#membersCarousel" data-bs-slide="next">
+      <button
+        class="carousel-control-next"
+        type="button"
+        data-bs-target="#membersCarousel"
+        data-bs-slide="next"
+      >
         <span class="carousel-control-next-icon" aria-hidden="true"></span>
         <span class="visually-hidden">Next</span>
       </button>
     </div>
-
   </div>
 </section>
 
@@ -288,7 +324,7 @@ const members: Member[] = [
       const myCarousel = new bootstrap.Carousel(carouselElement, {
         interval: 5000,
         wrap: true,
-        touch: true
+        touch: true,
       });
 
       adjustCarouselControls();

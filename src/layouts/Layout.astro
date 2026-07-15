@@ -8,7 +8,7 @@ interface Props {
 const { title } = Astro.props;
 ---
 
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="utf-8" />
@@ -31,7 +31,10 @@ const { title } = Astro.props;
     <meta property="og:title" content="Infinity Works - Born From The Ashes" />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://razanius12.github.io/InfinityWorks" />
-    <meta property="og:image" content="https://razanius12.github.io/InfinityWorks/images/3carsInfinityLogo.jpg" />
+    <meta
+      property="og:image"
+      content="https://razanius12.github.io/InfinityWorks/images/3carsInfinityLogo.jpg"
+    />
     <meta property="og:site_name" content="Infinity" />
     <meta
       property="og:description"
@@ -49,7 +52,10 @@ const { title } = Astro.props;
       name="twitter:description"
       content="Where the love of drifting meets the thrill of the ride. Join our community and experience the rush."
     />
-    <meta name="twitter:image" content="https://razanius12.github.io/InfinityWorks/images/3carsInfinityLogo.jpg" />
+    <meta
+      name="twitter:image"
+      content="https://razanius12.github.io/InfinityWorks/images/3carsInfinityLogo.jpg"
+    />
     <meta name="twitter:site" content="@InfinityWorks" />
 
     <meta name="instagram:card" content="summary_large_image" />
@@ -58,7 +64,10 @@ const { title } = Astro.props;
       name="instagram:description"
       content="Where the love of drifting meets the thrill of the ride. Join our community and experience the rush."
     />
-    <meta name="instagram:image" content="https://razanius12.github.io/InfinityWorks/images/3carsInfinityLogo.jpg" />
+    <meta
+      name="instagram:image"
+      content="https://razanius12.github.io/InfinityWorks/images/3carsInfinityLogo.jpg"
+    />
     <meta name="instagram:site" content="@InfinityWorks" />
 
     <meta name="discord:card" content="summary_large_image" />
@@ -67,7 +76,10 @@ const { title } = Astro.props;
       name="discord:description"
       content="Where the love of drifting meets the thrill of the ride. Join our community and experience the rush."
     />
-    <meta name="discord:image" content="https://razanius12.github.io/InfinityWorks/images/3carsInfinityLogo.jpg" />
+    <meta
+      name="discord:image"
+      content="https://razanius12.github.io/InfinityWorks/images/3carsInfinityLogo.jpg"
+    />
     <meta name="discord:site" content="@InfinityWorks" />
 
     <meta name="theme-color" content="#273987" data-react-helmet="true" />
@@ -120,41 +132,79 @@ const { title } = Astro.props;
     </div>
 
     <!-- Bootstrap Bundle JS (includes Popper.js) -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
-
-
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+    ></script>
 
     <!-- App Initialization Script -->
     <script is:inline>
-      // ===== NAVBAR & MUTE BUTTON SCROLL DETECTION =====
-      function setupScrollNavbar() {
-        const navbar = document.querySelector('.navbar');
-        const aboutSection = document.querySelector('#section_2');
-        
-        if (!navbar || !aboutSection) return;
+      // ===== AUTO-CLOSE MOBILE NAV AFTER CLICK =====
+      function setupMobileNavClose() {
+        const navLinks = document.querySelectorAll('.navbar-collapse .nav-link');
+        const navbarCollapse = document.querySelector('#navbarNav');
 
-        // Use Intersection Observer to detect when about section comes into view
-        const observer = new IntersectionObserver((entries) => {
-          entries.forEach((entry) => {
-            // Query for mute button here (after it's been created)
-            const muteBtn = document.querySelector('.video-mute-btn');
-            
-            if (!entry.isIntersecting) {
-              // About section is out of view (scrolled past)
-              navbar.classList.add('scrolled');
-              // Hide mute button when scrolled away from hero
-              if (muteBtn) {
-                muteBtn.classList.add('hidden');
-              }
-            } else {
-              // About section is visible, keep navbar transparent and show mute button
-              navbar.classList.remove('scrolled');
-              if (muteBtn) {
-                muteBtn.classList.remove('hidden');
+        navLinks.forEach((link) => {
+          link.addEventListener('click', () => {
+            // Check if navbar is expanded (only close on mobile)
+            if (navbarCollapse && navbarCollapse.classList.contains('show')) {
+              // Click the toggler to close the menu
+              const toggler = document.querySelector('.navbar-toggler');
+              if (toggler) {
+                toggler.click();
               }
             }
           });
-        }, { threshold: 0 });
+        });
+      }
+      // ===== MOBILE NAV TOGGLE - SOLID BACKGROUND =====
+      function setupNavbarToggleBackground() {
+        const toggler = document.querySelector('.navbar-toggler');
+        const navbar = document.querySelector('.navbar');
+        const navbarCollapse = document.querySelector('#navbarNav');
+
+        if (!toggler || !navbar || !navbarCollapse) return;
+
+        // Listen for Bootstrap collapse events
+        navbarCollapse.addEventListener('show.bs.collapse', () => {
+          navbar.classList.add('nav-open');
+        });
+
+        navbarCollapse.addEventListener('hidden.bs.collapse', () => {
+          navbar.classList.remove('nav-open');
+        });
+      }
+      // ===== NAVBAR & MUTE BUTTON SCROLL DETECTION =====
+      function setupScrollNavbar() {
+        const navbar = document.querySelector('.navbar');
+        const aboutSection = document.querySelector('#section_1');
+
+        if (!navbar || !aboutSection) return;
+
+        // Use Intersection Observer to detect when about section comes into view
+        const observer = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              // Query for mute button here (after it's been created)
+              const muteBtn = document.querySelector('.video-mute-btn');
+
+              if (!entry.isIntersecting) {
+                // About section is out of view (scrolled past)
+                navbar.classList.add('scrolled');
+                // Hide mute button when scrolled away from hero
+                if (muteBtn) {
+                  muteBtn.classList.add('hidden');
+                }
+              } else {
+                // About section is visible, keep navbar transparent and show mute button
+                navbar.classList.remove('scrolled');
+                if (muteBtn) {
+                  muteBtn.classList.remove('hidden');
+                }
+              }
+            });
+          },
+          { threshold: 0 }
+        );
 
         observer.observe(aboutSection);
       }
@@ -176,30 +226,34 @@ const { title } = Astro.props;
 
         // Ensure video is muted initially
         video.muted = true;
-        
+
         // Force autoplay with proper flags
         video.autoplay = true;
         video.loop = true;
-        
+
         // Add play() call to ensure it starts
         const playPromise = video.play();
         if (playPromise !== undefined) {
-          playPromise.catch(error => {
+          playPromise.catch((error) => {
             console.log('Video autoplay failed:', error);
           });
         }
 
         function updateMuteIcon() {
-          muteBtn.innerHTML = video.muted ? 
-            '<span class="bi bi-volume-mute"></span>' : 
-            '<span class="bi bi-volume-up"></span>';
+          muteBtn.innerHTML = video.muted
+            ? '<span class="bi bi-volume-mute"></span>'
+            : '<span class="bi bi-volume-up"></span>';
         }
 
         // Handle mute click
-        muteBtn.addEventListener('click', () => {
-          video.muted = !video.muted;
-          updateMuteIcon();
-        }, { passive: false });
+        muteBtn.addEventListener(
+          'click',
+          () => {
+            video.muted = !video.muted;
+            updateMuteIcon();
+          },
+          { passive: false }
+        );
 
         console.log('Video controls initialized');
       }
@@ -213,50 +267,53 @@ const { title } = Astro.props;
         for (let i = 1; i <= 23; i++) {
           const item = document.createElement('div');
           item.className = 'gallery-item';
-          
+
           const img = document.createElement('img');
           img.src = `/images/gallery/${i}.jpg`;
-          img.alt = `Gallery image ${i}`;
+          img.alt = `Gallery number ${i}`;
           img.loading = 'lazy';
           img.decoding = 'async';
-          
+
           item.appendChild(img);
           gallery.appendChild(item);
         }
-        
+
         console.log('✓ Gallery images created (23 items)');
       }
 
       // ===== LAZY LOADING FOR GALLERY IMAGES =====
       function initializeLazyLoading() {
         // Use Intersection Observer for lazy loading
-        const imageObserver = new IntersectionObserver((entries, observer) => {
-          entries.forEach(entry => {
-            if (entry.isIntersecting) {
-              const img = entry.target;
-              
-              // Check if image is already loaded
-              if (img.complete) {
-                // Image is already loaded, set opacity immediately
-                img.style.opacity = '1';
-              } else {
-                // Image is still loading, wait for load event
-                const handleLoad = () => {
+        const imageObserver = new IntersectionObserver(
+          (entries, observer) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                const img = entry.target;
+
+                // Check if image is already loaded
+                if (img.complete) {
+                  // Image is already loaded, set opacity immediately
                   img.style.opacity = '1';
-                  img.removeEventListener('load', handleLoad);
-                };
-                img.addEventListener('load', handleLoad);
+                } else {
+                  // Image is still loading, wait for load event
+                  const handleLoad = () => {
+                    img.style.opacity = '1';
+                    img.removeEventListener('load', handleLoad);
+                  };
+                  img.addEventListener('load', handleLoad);
+                }
+
+                observer.unobserve(img);
               }
-              
-              observer.unobserve(img);
-            }
-          });
-        }, {
-          rootMargin: '50px' // Start loading 50px before image enters viewport
-        });
+            });
+          },
+          {
+            rootMargin: '50px', // Start loading 50px before image enters viewport
+          }
+        );
 
         // Observe all gallery images
-        document.querySelectorAll('.gallery-item img').forEach(img => {
+        document.querySelectorAll('.gallery-item img').forEach((img) => {
           img.style.opacity = '0.5'; // Make unloaded images appear faded
           imageObserver.observe(img);
         });
@@ -362,8 +419,8 @@ const { title } = Astro.props;
         // Keyboard navigation
         document.addEventListener('keydown', (e) => {
           if (!viewer.classList.contains('active')) return;
-          
-          switch(e.key) {
+
+          switch (e.key) {
             case 'ArrowRight':
             case ' ':
               showNext();
@@ -385,15 +442,19 @@ const { title } = Astro.props;
         });
 
         // Scroll wheel zoom
-        viewer.addEventListener('wheel', (e) => {
-          if (!viewer.classList.contains('active')) return;
-          e.preventDefault();
-          if (e.deltaY < 0) {
-            zoomIn();
-          } else {
-            zoomOut();
-          }
-        }, { passive: false });
+        viewer.addEventListener(
+          'wheel',
+          (e) => {
+            if (!viewer.classList.contains('active')) return;
+            e.preventDefault();
+            if (e.deltaY < 0) {
+              zoomIn();
+            } else {
+              zoomOut();
+            }
+          },
+          { passive: false }
+        );
 
         // Click outside to close
         viewer.addEventListener('click', (e) => {
@@ -413,7 +474,9 @@ const { title } = Astro.props;
         document.querySelectorAll('.game-appearance-img').forEach((img) => {
           img.addEventListener('click', () => {
             // Find the index of this image in the full images array
-            const idx = Array.from(document.querySelectorAll('.gallery-item img, .game-appearance-img')).indexOf(img);
+            const idx = Array.from(
+              document.querySelectorAll('.gallery-item img, .game-appearance-img')
+            ).indexOf(img);
             window.openImageViewer(idx);
           });
         });
@@ -421,11 +484,51 @@ const { title } = Astro.props;
         console.log('Image viewer initialized with zoom controls');
       }
 
+      // ===== SCROLL SPY - HIGHLIGHT ACTIVE NAV LINK =====
+      function setupScrollSpy() {
+        const sections = document.querySelectorAll('section[id^="section_"]');
+        const navLinks = document.querySelectorAll('.navbar-nav .nav-link');
+
+        if (sections.length === 0 || navLinks.length === 0) return;
+
+        const observer = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                // Skip highlighting for hero section (section_1)
+                if (entry.target.id === 'section_1') {
+                  navLinks.forEach((link) => link.classList.remove('active'));
+                  return;
+                }
+
+                // Remove active class from all links
+                navLinks.forEach((link) => link.classList.remove('active'));
+
+                // Add active class to the corresponding link
+                const sectionId = entry.target.id;
+                const activeLink = document.querySelector(
+                  `.navbar-nav .nav-link[href="#${sectionId}"]`
+                );
+                if (activeLink) {
+                  activeLink.classList.add('active');
+                }
+              }
+            });
+          },
+          { threshold: 0.15 }
+        );
+
+        sections.forEach((section) => observer.observe(section));
+      }
+
       // ===== MAIN INITIALIZATION =====
       function initializeApp() {
         try {
           initializeGallery();
           setupScrollNavbar();
+          setupMobileNavClose();
+          setupNavbarToggleBackground();
+          setupScrollSpy();
           initializeVideoControls();
           initializeLazyLoading();
           initializeImageViewer();
